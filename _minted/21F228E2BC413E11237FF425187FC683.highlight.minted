@@ -1,0 +1,6 @@
+\begin{MintedVerbatim}[commandchars=\\\{\}]
+\PYG{n}{pre} \PYG{o}{=} \PYG{n}{ColumnTransformer}\PYG{p}{([}
+    \PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}scaler\PYGZdq{}}\PYG{p}{,} \PYG{n}{StandardScaler}\PYG{p}{(),} \PYG{n}{CONT}\PYG{p}{),}
+    \PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}onehot\PYGZdq{}}\PYG{p}{,} \PYG{n}{OneHotEncoder}\PYG{p}{(}\PYG{n}{handle\PYGZus{}unknown}\PYG{o}{=}\PYG{l+s+s2}{\PYGZdq{}ignore\PYGZdq{}}\PYG{p}{,} \PYG{n}{sparse\PYGZus{}output}\PYG{o}{=}\PYG{k+kc}{False}\PYG{p}{),} \PYG{n}{CAT}\PYG{p}{)}
+\PYG{p}{])}
+\end{MintedVerbatim}

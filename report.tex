@@ -1,0 +1,744 @@
+% ==============================================================
+%  PROJECT REPORT TEMPLATE (LIGHT VERSION)
+%  Who Is The Killer? — Piraeus Vice
+% ==============================================================
+
+\documentclass[11pt,a4paper]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=black,
+}
+\usepackage{graphicx}
+\usepackage{caption}
+\usepackage{fontspec}
+\usepackage{polyglossia}
+\setmainlanguage{english}
+\setotherlanguage{greek}
+\setmainfont{Times New Roman}
+\newfontfamily\greekfonttt{Courier New} %Courier New
+\usepackage{minted}
+\usepackage{xcolor}
+\usemintedstyle{tango}  
+\usepackage{booktabs}
+
+\usepackage{amsmath,amssymb}
+\usepackage{geometry}
+\geometry{margin=2.5cm}
+\usepackage{enumitem}
+\usepackage{mwe} % for example-image, example-image-duck, etc.
+
+
+\title{
+  \includegraphics[width=0.25\textwidth]{C:/Users/terez/Documents/LatexProjects/Crypto_Solutions/images/UNIPI.png}\\[3em]
+  Who Is The Killer?\\[0.3em]
+  {\large Piraeus Vice Pattern Recognition Project} \\[1em]
+}
+
+\author{
+  Student 1: Βασίλαινα Μαρία (ID: Π23015) \\
+  Student 2: Γρηγοράσκου Τερέζα (ID: Π22037) \\
+  Student 3: Λιβέρης Φώτης (ID: Π23104) \\
+  \\[1.5em]
+  Department of Informatics \\
+  University of Piraeus \\[1.5em]
+}
+
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\newpage
+
+\begin{abstract}
+  
+In this project, we addressed the killer identification problem as a multiclass classification task. We first estimated class-specific means and covariances using
+Maximum Likelihood Estimation (MLE), and used them to build a Gaussian Bayes classifier. We then implemented a linear classifier, a nonlinear SVM (RBF kernel), a two-hidden-layer 
+MLP neural network, and an unsupervised PCA + k-means approach with majority-vote label mapping. All preprocessing (standardization and one-hot encoding) was fitted on the TRAIN 
+split and applied to VAL and TEST to avoid data leakage. PCA was used both for visualization and as a preprocessing step for k-means. On the validation set, nonlinear models 
+(SVM and MLP) achieved the best performance, outperforming the Gaussian Bayes and linear classifiers. The PCA + k-means approach achieved lower accuracy, indicating that natural 
+clusters in feature space do not perfectly align with killer identities. Overall, the features that proved to be of the most importance were those related with the victim and the 
+crime scene. Last but not least, modeling nonlinear decision boundaries significantly improved classification performance. \\[1em]
+
+Collectively, in order to classify data and reach our final prediction we followed the following steps.
+\begin{itemize}
+  \item MLE (Maximum Likelihood Estimation)
+  \item Gaussian Bayes classifier
+  \item Linear classifier
+  \item SVM (Sypport Vector Machine)
+  \item MLP (Multi-Layer Preceptron)
+  \item PCA (Principal Component Analysis)
+  \item k-means
+\end{itemize} 
+\end{abstract}
+
+
+
+\newpage
+
+\tableofcontents
+
+\newpage
+
+% --------------------------------------------------------------
+\section{Introduction}
+
+In the current project we were asked to identify the most likely killer for each crime incident in the ``Piraeus Vice'' data set. 
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=0.55\textwidth]{example-image-duck}
+  \caption{Humorous placeholder: the ``prime suspect'' before any
+  machine learning. Replace this with a real illustrative figure (e.g.,
+  a high-level pipeline diagram of your method).}
+\end{figure}
+
+% --------------------------------------------------------------
+\section{Data description}
+
+Τhe csv file we were given consists of a total of 4.800 rows, each one representing one crime incident. Also, it consists of 15 columns, one for each feature.
+An overview of these features and their corresponding types follows in section 2.1. The dataset contains a predefined split column that is either TRAIN, VAL or 
+TEST. This means that the data is already partitioned for modeling and evaluation. As far as we can tell the dataset is not standardised or normalised. 
+
+\subsection{Feature overview}
+
+\begin{table}[h]
+  \centering
+  \caption{Feature summary.}
+  \begin{tabular}{ll}
+    \toprule
+    Feature name       & Type \\
+    \midrule
+    incident\_id       & identifier \\
+    hour\_float        & continuous \\
+    latitude           & continuous \\
+    longitude          & continuous \\
+    victim\_age        & continuous \\
+    temp\_c            & continuous \\
+    humidity           & continuous \\
+    dist\_precinct\_km & continuous \\
+    pop\_density       & continuous \\
+    weapon\_code       & categorical \\
+    scene\_type        & categorical \\
+    weather            & categorical \\
+    vic\_gender        & categorical (binary) \\
+    split              & categorical \\
+    killer\_id         & identifier \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+% --------------------------------------------------------------
+\newpage
+
+\section{Results}
+
+\subsection*{Q1: Exploratory analysis}
+\addcontentsline{toc}{subsection}{Q1: Exploratory analysis}
+
+
+The images that follow are the histograms for the key continuous variables (hour, age, latitude, longitude) that we produced.
+
+\begin{figure}[h]
+    \centering
+    \begin{minipage}[b]{0.49\textwidth}
+        \includegraphics[width=\textwidth]{./images/Q1_diagrams/q1_hist_hour_float.png}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[b]{0.49\textwidth}
+        \includegraphics[width=\textwidth]{./images/Q1_diagrams/q1_hist_victim_age.png}
+    \end{minipage}
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \begin{minipage}[b]{0.49\textwidth}
+        \includegraphics[width=\textwidth]{./images/Q1_diagrams/q1_hist_latitude.png}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[b]{0.49\textwidth}
+        \includegraphics[width=\textwidth]{./images/Q1_diagrams/q1_hist_longitude.png}
+    \end{minipage}
+    \\ [1em]
+\end{figure}
+
+Below is the comparison of the single Gaussian fit and a mixture of Gaussians for \texttt{hour\_float}.
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=0.9\textwidth]{./images/Q1_diagrams/q1_hour_float_single_vs_gmm.png}
+\end{figure}
+
+\newpage
+
+Also, we provide you with the additional two-dimensional plot involving \texttt{hour\_float} and \texttt{longtitude}.
+using TRAIN+VAL and without using any labels, as requested.
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=0.9\textwidth]{./images/Q1_diagrams/q1_scatter_hour_vs_longitude.png}
+  \\[1em]
+\end{figure}
+
+Our observations around the 4 key continuous variables are the following:
+
+\begin{itemize}
+  \item Firstly, about the variable \texttt{hour\_float} the incidents are at their peak during daytime, which is somewhat unexpected.
+  \item As far as the variable \texttt{victim\_age} is concerned it can easily be observed that the selected victims were either of a very
+  young age or of a very old. With that said, we can safely come to the conclusion that they were targeted because they belonged
+  to the most vulnerable age groups.
+  \item The histogram of the variable \texttt{latitude} presents some fluctuations that are at their core closer to its average value.
+  \item Lastly, concerning the variable \texttt{longtitude}, by observing both the corresponding histogram as well as the 2D scatter, it is clear 
+  that the incident density is also thicker closer to its average value.
+\end{itemize}
+
+Regarding the single Gaussian, we believe that it is inadequate. We can easily see that it is not symmetric. But it is not solely that. It also ignores some of the peaks.
+As a result it fails to represent correctly the given data. By splitting it to the 3-component Gaussian Mixture we achieve better interpretation of the 
+times of the day as well as better representation of the data as it focuses on distinct times of the day.\\ [1em]
+
+\newpage
+
+\subsubsection*{Explanation}
+\addcontentsline{toc}{subsubsection}{Explanation}
+
+We have decided to use the library GaussianMixture that proved to be very usefull.
+Also, we created the following function in order to be able to create the histograms.
+As we can see it requires 5 parameters, 3 of which have default values in case they don't receive any.
+The parameters are:
+
+\begin{itemize}
+  \item series: a pandas series containing numerical data,
+  \item title: it describes the column we are focusing on,
+  \item bins: the number or range of lines that the histogram will consist of,
+  \item kde: it controls whether the result will be a histogram or a smooth curve that represents the distribution of the data,
+  \item xlim: it limits the range of the x-axis. \\[1em]
+\end{itemize}
+
+\begin{minted}[
+    linenos,                
+    breaklines=true,        
+    breakanywhere=true,     
+    breakautoindent=true,   
+    bgcolor= gray!10,       
+    fontsize=\small
+]{python}
+def plot_hist_with_stats(series, title, bins=30, kde=False, xlim=None):
+    s = series.dropna().values
+    fig, ax = plt.subplots(figsize=(8, 4.5))
+    sns.histplot(s, bins=bins, stat="density", kde=kde, edgecolor="white", color="#4C78A8", ax=ax)
+    if xlim:
+        ax.set_xlim(xlim)
+    ax.set_title(title, fontweight="bold")
+    ax.set_xlabel(title)
+    ax.set_ylabel("Πυκνότητα")
+    mu, sigma = np.mean(s), np.std(s, ddof=1)
+    ax.axvline(mu, color="crimson", linestyle="--", label=f"μ={mu:.2f}")
+    ax.legend()
+    plt.tight_layout()
+    return fig, ax, mu, sigma
+\end{minted} 
+
+% --------------------------------------------------------------
+\newpage
+
+\subsection*{Q2: Gaussian MLE per killer}
+\addcontentsline{toc}{subsection}{Q2: Gaussian MLE per killer}
+
+Bellow we present you  one covariance heatmap and one 2D projection with ellipses per killer, as requested.  
+
+\begin{itemize}
+  \item Killer 1: \\ 
+  \begin{figure}[h]
+    \centering
+    \begin{minipage}[b]{0.52\textwidth}
+        \includegraphics[width=\textwidth]{./images/Q2_diagrams/Q2_diagrams_covariance/q2_covariance_k1.png}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[b]{0.4\textwidth}
+        \includegraphics[width=\textwidth]{./images/Q2_diagrams/Q2_diagrams_ellipse/q2_ellipse_hour_float_longitude_k1.png}
+    \end{minipage}
+    \\ [1em]
+  \end{figure}
+  \item Killer 2: \\ 
+  \begin{figure}[h]
+    \centering
+    \begin{minipage}[b]{0.52\textwidth}
+        \includegraphics[width=\textwidth]{./images/Q2_diagrams/Q2_diagrams_covariance/q2_covariance_k2.png}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[b]{0.4\textwidth}
+        \includegraphics[width=\textwidth]{./images/Q2_diagrams/Q2_diagrams_ellipse/q2_ellipse_hour_float_longitude_k2.png}
+    \end{minipage}
+    \\ [1em]
+  \end{figure}
+  \newpage
+  \item Killer 3: \\ 
+  \begin{figure}[h]
+    \centering
+    \begin{minipage}[b]{0.52\textwidth}
+        \includegraphics[width=\textwidth]{./images/Q2_diagrams/Q2_diagrams_covariance/q2_covariance_k3.png}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[b]{0.4\textwidth}
+        \includegraphics[width=\textwidth]{./images/Q2_diagrams/Q2_diagrams_ellipse/q2_ellipse_hour_float_longitude_k3.png}
+    \end{minipage}
+    \\ [1em]
+  \end{figure}
+  \item Killer 4: \\ 
+  \begin{figure}[h]
+    \centering
+    \begin{minipage}[b]{0.52\textwidth}
+        \includegraphics[width=\textwidth]{./images/Q2_diagrams/Q2_diagrams_covariance/q2_covariance_k4.png}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[b]{0.4\textwidth}
+        \includegraphics[width=\textwidth]{./images/Q2_diagrams/Q2_diagrams_ellipse/q2_ellipse_hour_float_longitude_k4.png}
+    \end{minipage}
+    \\ [1em]
+  \end{figure}
+  \newpage
+  \item Killer 5: \\ 
+  \begin{figure}[h]
+    \centering
+    \begin{minipage}[b]{0.52\textwidth}
+        \includegraphics[width=\textwidth]{./images/Q2_diagrams/Q2_diagrams_covariance/q2_covariance_k5.png}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[b]{0.4\textwidth}
+        \includegraphics[width=\textwidth]{./images/Q2_diagrams/Q2_diagrams_ellipse/q2_ellipse_hour_float_longitude_k5.png}
+    \end{minipage}
+    \\ [1em]
+  \end{figure}
+  \item Killer 6: \\ 
+  \begin{figure}[h]
+    \centering
+    \begin{minipage}[b]{0.52\textwidth}
+        \includegraphics[width=\textwidth]{./images/Q2_diagrams/Q2_diagrams_covariance/q2_covariance_k6.png}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[b]{0.4\textwidth}
+        \includegraphics[width=\textwidth]{./images/Q2_diagrams/Q2_diagrams_ellipse/q2_ellipse_hour_float_longitude_k6.png}
+    \end{minipage}
+    \\ [1em]
+  \end{figure}
+  \newpage
+  \item Killer 7: \\ 
+  \begin{figure}[h]
+    \centering
+    \begin{minipage}[b]{0.52\textwidth}
+        \includegraphics[width=\textwidth]{./images/Q2_diagrams/Q2_diagrams_covariance/q2_covariance_k7.png}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[b]{0.4\textwidth}
+        \includegraphics[width=\textwidth]{./images/Q2_diagrams/Q2_diagrams_ellipse/q2_ellipse_hour_float_longitude_k7.png}
+    \end{minipage}
+    \\ [1em]
+  \end{figure}
+  \item Killer 8: \\ 
+  \begin{figure}[h]
+    \centering
+    \begin{minipage}[b]{0.52\textwidth}
+        \includegraphics[width=\textwidth]{./images/Q2_diagrams/Q2_diagrams_covariance/q2_covariance_k8.png}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[b]{0.4\textwidth}
+        \includegraphics[width=\textwidth]{./images/Q2_diagrams/Q2_diagrams_ellipse/q2_ellipse_hour_float_longitude_k8.png}
+    \end{minipage}
+    \\ [1em]
+  \end{figure}
+\end{itemize}
+
+\newpage
+
+\subsubsection*{Explanation}
+\addcontentsline{toc}{subsubsection}{Explanation}
+
+To estimate the mean and covariance of the continuous features for each killer on TRAIN we assumed that, for each 
+killer k, the continuous feature vector follows a multivariate Gaussian distribution. To estimate the parameters we 
+used Maximum Likelihood Estimation (MLE), restricting ourselves only to the TRAIN split, where the killer labels are known.
+For each killer k, we collected all TRAIN incidents commited by that killer. This way, each killer's profile starts to assemble.
+Lastly, we visualise our results for better interpretation.
+
+% --------------------------------------------------------------
+\newpage
+
+\subsection*{Q3: Multiclass Gaussian Bayes classifier}
+\addcontentsline{toc}{subsection}{Q3: Multiclass Gaussian Bayes classifier}
+
+We evaluated the TRAIN accuracy and the VAL accuracy and concluded that they are equal to 89\% and 90\% respectively.
+Here is the requested confusion matrix on VAL. 
+
+\begin{table}[h]
+  \centering
+  \caption{Confusion matrix for the Gaussian Bayes classifier on VAL.}
+  \begin{tabular}{lcccccccc}
+    \toprule
+    True / Pred & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 \\
+    \midrule
+    1           & 13 &  1 &  2 &  0 &  0 &  1 &  0 &  0\\
+    2           &  1 & 59 &  1 &  0 &  0 &  1 &  0 &  0\\
+    3           &  3 &  0 &474 &  0 &  5 &  0 &  7 &  2\\
+    4           &  0 &  0 &  2 & 38 &  1 &  0 &  4 &  0\\
+    5           &  0 &  0 & 32 &  1 & 11 &  0 &  1 &  3\\
+    6           &  0 &  0 &  0 &  0 &  0 &133 &  0 &  0\\
+    7           &  1 &  2 &  0 &  3 &  0 &  0 &137 &  0\\
+    8           &  0 &  0 & 15 &  0 &  2 &  0 &  0 &  2\\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+We can see that the matrix prodyced is mostly diagonal and the killers with the highest presence are the 
+killers 3, 6 and 7. \\
+
+Below follows the two-dimensional projection, visualising the decision regions induced by the Bayes classifier, with 
+TRAIN points coloured by true killer. Each curved boundary seperates the feature regions of each killer.
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=0.9\textwidth]{./images/Q3_diagrams/q3_PCA_with_consistent_legend.png}
+  \\[1em]
+\end{figure}
+
+\newpage
+
+\subsubsection*{Explanation}
+\addcontentsline{toc}{subsubsection}{Explanation}
+
+We implemented a multiclass Gaussian Bayes classifier using the parameters estimated in Q2. For each killer
+k, we modelled the continuous feature vector as a multivariate Gaussian distribution. For each incident x we 
+calculated the long-posterior probability. Lastly, we evaluated the classifier on the VAL split by calculating 
+the overall accuracy and of course prosuced the corresponding confusion matrix.
+
+% --------------------------------------------------------------
+\newpage
+
+\subsection*{Q4: Linear classifier}
+\addcontentsline{toc}{subsection}{Q4: Linear classifier}
+
+This time, the TRAIN accuracy and the VAL accuracy are equal to 77\% and 78\% respectively. We need to highlight that 
+these numbers are lower than Q3's. That could mean that the Gaussian assumption is more accurate. Here is the confusion
+matrix on VAL. 
+
+\begin{table}[h]
+  \centering
+  \caption{Confusion matrix for the Gaussian Bayes classifier on VAL.}
+  \begin{tabular}{lcccccccc}
+    \toprule
+    True / Pred & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 \\
+    \midrule
+    1           &  0 &  1 &  9 &  0 &  2 &  4 &  1 &  0\\
+    2           &  1 & 38 & 17 &  0 &  0 &  3 &  3 &  0\\
+    3           &  0 &  4 &473 &  0 &  4 &  1 &  9 &  0\\
+    4           &  1 &  0 &  4 &  0 &  0 &  0 & 40 &  0\\
+    5           &  0 &  1 & 28 &  1 & 14 &  0 &  4 &  0\\
+    6           &  0 &  3 & 12 &  0 &  0 &117 &  1 &  0\\
+    7           &  3 &  4 & 26 &  0 &  1 &  1 &108 &  0\\
+    8           &  0 &  0 & 12 &  0 &  4 &  0 &  3 &  0\\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+Comparing it to Q3's matrix it obviously does not resemble a diagonal matrix which may mean that 
+we have strayed from our end goal. While some numbers have slightly changed(e.g. 474 -> 473), most of them 
+have completely changed. Also, the last column consists entirely of zeros. However, the killers with
+the highest presence remain the same. \\
+
+Also, in the 2D PCA projection used in Q3, we overlayed the approximate linear decision boundaries and the result is the following.
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=0.83\textwidth]{./images/Q4_diagrams/q4_overlay_on_q3_pca.png}
+  \\[1em]
+\end{figure}
+
+When compared to Q3's RCA projection one can easily see that the regions are seperated by lines and clearly
+determine which one corresponds to each killer. Some may correspond to more than one killers. This happens 
+because the linear model is not able to fully adapt to the shape of the data the way that the Gaussian Bayes does.
+
+\newpage
+
+\subsubsection*{Explanation}
+\addcontentsline{toc}{subsubsection}{Explanation}
+
+We treated the killer identification as a discriminative multiclass classification problem using the full vector consisting of the 8 continuous 
+features (hour\_float, latitude, longitude, victim\_age, temp\_c, humidity, dist\_precinct\_km and pop\_density) and 4 more cateforical features 
+(weapon\_code, scene\_type, weather, vic\_gender). We implemented the linear classifier given. We trained the model on the TRAIN split using MSE 
+(Mean Squared Error loss). Lastly, we valuate the accuracy and the confusion matrix and produce the 2D PCA overlaying the one from Q3.\\
+
+Note to teacher: As you may have noticed if you have run our code, on the terminal also appear the Q3's results. Everything on terminal is exclusively 
+for our convenience in order to make sure all things run smoothly and are executed correctly. It should not consern you as we have provided you with 
+Q4's results in the previous section.
+
+% --------------------------------------------------------------
+\newpage
+
+\subsection*{Q5: Support Vector Machine}
+\addcontentsline{toc}{subsection}{Q5: Support Vector Machine}
+
+The VAL accuracy for the RBF method is 94\%. The confusion matrix is the following. Once again it slightly resembles a diagonal matrix which means we are getting closer.
+
+\begin{table}[h]
+  \centering
+  \caption{Confusion matrix for the Gaussian Bayes classifier on VAL.}
+  \begin{tabular}{lcccccccc}
+    \toprule
+    True / Pred & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 \\
+    \midrule
+    1           & 14 &  0 &  3 &  0 &  0 &  0 &  0 &  0\\
+    2           &  0 & 62 &  0 &  0 &  0 &  0 &  0 &  0\\
+    3           &  0 &  0 &484 &  0 &  1 &  0 &  2 &  4\\
+    4           &  0 &  0 &  1 & 35 &  1 &  0 &  8 &  0\\
+    5           &  0 &  0 & 14 &  0 & 30 &  0 &  1 &  3\\
+    6           &  0 &  0 &  0 &  0 &  0 &133 &  0 &  0\\
+    7           &  0 &  0 &  0 &  1 &  1 &  0 &141 &  0\\
+    8           &  0 &  0 &  6 &  0 &  3 &  0 &  0 & 10\\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+In the images that follow we can see the decision regions as well as the support vectors.
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=0.66\textwidth]{./images/Q5_diagrams/q5_decision_regions_pca2_rbf.png}
+\end{figure}
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=0.66\textwidth]{./images/Q5_diagrams/q5_support_vectors_pca2_rbf.png}
+\end{figure}
+
+\newpage
+
+\subsubsection*{Explanation}
+\addcontentsline{toc}{subsubsection}{Explanation}
+
+Our SVM setup is formed by choosing either RBF or Polynomial kernel. We prefered RBF as it allows non-linear decision boundaries. The code is modified for either one.
+
+\begin{minted}[
+    linenos,                
+    breaklines=true,        
+    breakanywhere=true,     
+    breakautoindent=true,   
+    bgcolor= gray!10,       
+    fontsize=\small
+]{python}
+def small_search_space(kernel: str):
+    if kernel == "rbf":
+        Cs = [0.3, 1, 3]
+        gammas = ["scale", 0.1, 0.03]
+        return [(c, g, None, None) for c in Cs for g in gammas]
+    else:
+        Cs = [0.3, 1, 3]
+        gammas = ["scale", 0.1]
+        degrees = [2]
+        coef0s = [0, 1]
+        return [(c, g, d, c0) for c in Cs for g in gammas for d in degrees for c0 in coef0s]
+\end{minted} 
+
+We continued with tuning the hyperparameters using a small manual grin search on VAL. Each candidate model was trained on TRAIN and evaluated on VAL. We chose the 
+one that seemed more suitable to us based on the highest validation accuracy. Latsly, since the SVM is a binary classifier due to inheritance, we used One vs Rest 
+strategy. This way, there is one binary SVN trained per killer, which means we have 8 classifiers, each one able to seperate class k from the rest and as far as prediction is concerned, 
+it is the class with the highest score that is selected. All preprocessing was applied inside a Pipeline thus ensuring there will be no data leakage.
+
+% --------------------------------------------------------------
+\newpage
+
+\subsection*{Q6: Multi-Layer Perceptron}
+\addcontentsline{toc}{subsection}{Q6: Multi-Layer Perceptron}
+
+The VAL accuracy is equal to 94\% (same as the SVM's). \\
+The features of most importance seem to be(in ascending order): \\
+
+\begin{enumerate}
+  \centering
+  \item dist\_previnct\_km \qquad \qquad ΔΑ = 0.07
+  \item latitude \qquad \qquad \qquad \qquad ΔΑ = 0.06
+  \item victim\_age \qquad \qquad \qquad \hspace{0.13cm} ΔΑ = 0.05
+  \item humidity \qquad \qquad \qquad \quad \hspace{0.06cm} ΔΑ = 0.03
+  \item pop\_density \qquad \qquad \quad \hspace{0.35cm} ΔΑ = 0.02 
+  \\[1.5em]
+\end{enumerate}
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=0.9\textwidth]{./images/Q6_diagrams/q6_top5_features.png}
+  \\[1em]
+\end{figure}
+
+\newpage
+
+\subsubsection*{Explanation}
+\addcontentsline{toc}{subsubsection}{Explanation}
+
+We implemented a Multilayer Perceptron (MLP) as classifier using the following code:
+
+\begin{minted}[
+    linenos,                
+    breaklines=true,        
+    breakanywhere=true,     
+    breakautoindent=true,   
+    bgcolor= gray!10,       
+    fontsize=\small
+]{python}
+mlp = MLPClassifier(
+    hidden_layer_sizes=(64, 32),   # 2 hidden layers
+    activation="relu",
+    solver="adam",
+    max_iter=200,
+    random_state=0,
+    early_stopping=True
+)
+\end{minted} 
+
+We continued by once again training the model on TRAIN, calculated VAL accuraciy etc. Lastly, feature importance was estimated using permutation importance.
+
+% --------------------------------------------------------------
+\newpage
+
+\subsection*{Q7: Principal Component Analysis}
+\addcontentsline{toc}{subsection}{Q7: Principal Component Analysis}
+
+Bellow we provide you with a plot of eigenvalues versus component index and a PC1--PC2 scatter plot coloured by predicted killer labels, as requested.
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=0.8\textwidth]{./images/Q7_diagrams/q7_scree_plot.png}
+\end{figure}
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=0.8\textwidth]{./images/Q7_diagrams/q7_pca2_svm_colours.png}
+\end{figure}
+
+\newpage
+
+\subsubsection*{Explanation}
+\addcontentsline{toc}{subsubsection}{Explanation}
+
+Before applying PCA, we started off by preprocessing the features this way once again ensuring no data leakage.
+
+\begin{minted}[
+    linenos,                
+    breaklines=true,        
+    breakanywhere=true,     
+    breakautoindent=true,   
+    bgcolor= gray!10,       
+    fontsize=\small
+]{python}
+pre = ColumnTransformer([
+    ("scaler", StandardScaler(), CONT),
+    ("onehot", OneHotEncoder(handle_unknown="ignore", sparse_output=False), CAT)
+])
+\end{minted} 
+
+Subsequently, PCA was fitted on TRAIN only and then applied to both TRAIN and VAL. Firstly, we let PCA run without any restrictions on the number of 
+components. However, for visualization purposes only we chose to set the parameter n\_components to 2 to achieve projection in $R^2$.
+
+% --------------------------------------------------------------
+\newpage
+
+\subsection*{Q8: $k$-means in PCA space}
+\addcontentsline{toc}{subsection}{Q8: $k$-means in PCA space}
+
+\newpage
+
+\subsubsection*{Explanation}
+\addcontentsline{toc}{subsubsection}{Explanation}
+
+To start with, the data was once again preprocessed, fitted on TRAIN and applied on VAL and TEST. The PCA was applied on TRAIN only. The number of 
+components was set to 5 (based on Q7's results). So, we ran k-means with k equal to S, where equals to the nnumber of killers(in our case 8). K-means
+is unsupervised, so the clusters do not correspond directly to the killer IDs. In order to convert clusters into class labels, we used majority voting 
+on the TRAIN set. For each cluster, we identified all TRAIN samples assigned to that cluster, examined their true killer labels, and assigned each cluster 
+the label of the most frequent killer in that cluster. For evaluation on VAL, samples were assigned to clusters using the fitted k-means model, mapped to 
+killer IDs using the majority-vote mapping, and accuracy was of course calculated. Finally, for the TEST set, we produced a probability distribution over 
+the clusters by calculating the Euclidean distance from each sample to all centroids. Distances were converted to scores using score = −distance, and a 
+softmax function was applied to obtain normalized probabilities.
+
+% --------------------------------------------------------------
+\newpage
+
+\section{Discussion and conclusions}
+
+Let's summarise the VAL accuracies of these methods up until now:
+
+\begin{table}[h]
+  \centering
+  \caption{Validation accuracy for different models.}
+  \begin{tabular}{lcc}
+    \toprule
+    Model                  & VAL accuracy \\
+    \midrule
+    Gaussian Bayes         & 0.905 \\
+    Linear classifier      & 0.782 \\
+    SVM (RBF kernel)       & 0.948 \\
+    MLP                    & 0.944 \\
+    PCA (+ k-means)        & xxxxx \\
+    \bottomrule
+  \end{tabular}
+  \\[1em]
+\end{table}
+
+So, in ascending order of performance we have:
+
+\begin{enumerate}
+  \item SVM (Q5)
+  \item MLP (Q6)
+  \item Gaussian Bayes (Q3)
+  \item Linear classifier (Q4)
+  \item PCA + k-means (Q8)
+  \\[0.2em]
+\end{enumerate}
+
+We have concluded that the more helpful features in order to model behavior where geographic features (latitude and longtitude), victim-related information 
+(their age and gender), information about the place where the crime was commited and the prevailing weather conditions (weather, temperature and scene type) 
+and of course the weapon type (not necessarily in that order). Potentially, more complex generative models could be included and explored. 
+Additionally, there are other factors to could be analyzed and taken into consideration, such as crime frequency patterns, killer's motive or mental health disorders. 
+Overall, the current study highlights the importance of combining proper preprocessing, nonlinear modeling and feature analysis when trying to solve real-world pattern 
+recognition problems.
+
+% --------------------------------------------------------------
+\newpage
+
+\section*{Code organisation}
+
+Briefly describe your Python code structure (scripts, notebooks, helper
+modules) and how to reproduce:
+\begin{itemize}
+  \item the main results and figures in this report;
+  \item the prediction file \texttt{submission.csv}.
+\end{itemize}
+
+% --------------------------------------------------------------
+% \appendix
+
+% \section{Additional figures and tables}
+
+% Place any extra plots or tables here that do not fit into the main text.
+\newpage
+
+\section{LLM prompts and responses}
+
+If you used ChatGPT or any other LLM, list all prompts and the
+corresponding responses you used during the preparation of this project.
+
+\subsection*{Example format}
+
+\textbf{Prompt:}
+\begin{verbatim}
+Explain how to compute a covariance matrix from data.
+\end{verbatim}
+
+\textbf{Response:}
+\begin{verbatim}
+[Paste the model's response here...]
+\end{verbatim}
+
+\textbf{Comment:} We checked the formulas and then implemented them
+independently.
+
+\end{document}

@@ -1,0 +1,13 @@
+\begin{MintedVerbatim}[commandchars=\\\{\}]
+\PYG{k}{def}\PYG{+w}{ }\PYG{n+nf}{small\PYGZus{}search\PYGZus{}space}\PYG{p}{(}\PYG{n}{kernel}\PYG{p}{:} \PYG{n+nb}{str}\PYG{p}{):}
+    \PYG{k}{if} \PYG{n}{kernel} \PYG{o}{==} \PYG{l+s+s2}{\PYGZdq{}rbf\PYGZdq{}}\PYG{p}{:}
+        \PYG{n}{Cs} \PYG{o}{=} \PYG{p}{[}\PYG{l+m+mf}{0.3}\PYG{p}{,} \PYG{l+m+mi}{1}\PYG{p}{,} \PYG{l+m+mi}{3}\PYG{p}{]}
+        \PYG{n}{gammas} \PYG{o}{=} \PYG{p}{[}\PYG{l+s+s2}{\PYGZdq{}scale\PYGZdq{}}\PYG{p}{,} \PYG{l+m+mf}{0.1}\PYG{p}{,} \PYG{l+m+mf}{0.03}\PYG{p}{]}
+        \PYG{k}{return} \PYG{p}{[(}\PYG{n}{c}\PYG{p}{,} \PYG{n}{g}\PYG{p}{,} \PYG{k+kc}{None}\PYG{p}{,} \PYG{k+kc}{None}\PYG{p}{)} \PYG{k}{for} \PYG{n}{c} \PYG{o+ow}{in} \PYG{n}{Cs} \PYG{k}{for} \PYG{n}{g} \PYG{o+ow}{in} \PYG{n}{gammas}\PYG{p}{]}
+    \PYG{k}{else}\PYG{p}{:}
+        \PYG{n}{Cs} \PYG{o}{=} \PYG{p}{[}\PYG{l+m+mf}{0.3}\PYG{p}{,} \PYG{l+m+mi}{1}\PYG{p}{,} \PYG{l+m+mi}{3}\PYG{p}{]}
+        \PYG{n}{gammas} \PYG{o}{=} \PYG{p}{[}\PYG{l+s+s2}{\PYGZdq{}scale\PYGZdq{}}\PYG{p}{,} \PYG{l+m+mf}{0.1}\PYG{p}{]}
+        \PYG{n}{degrees} \PYG{o}{=} \PYG{p}{[}\PYG{l+m+mi}{2}\PYG{p}{]}
+        \PYG{n}{coef0s} \PYG{o}{=} \PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{,} \PYG{l+m+mi}{1}\PYG{p}{]}
+        \PYG{k}{return} \PYG{p}{[(}\PYG{n}{c}\PYG{p}{,} \PYG{n}{g}\PYG{p}{,} \PYG{n}{d}\PYG{p}{,} \PYG{n}{c0}\PYG{p}{)} \PYG{k}{for} \PYG{n}{c} \PYG{o+ow}{in} \PYG{n}{Cs} \PYG{k}{for} \PYG{n}{g} \PYG{o+ow}{in} \PYG{n}{gammas} \PYG{k}{for} \PYG{n}{d} \PYG{o+ow}{in} \PYG{n}{degrees} \PYG{k}{for} \PYG{n}{c0} \PYG{o+ow}{in} \PYG{n}{coef0s}\PYG{p}{]}
+\end{MintedVerbatim}

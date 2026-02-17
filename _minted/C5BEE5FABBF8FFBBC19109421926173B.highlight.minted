@@ -1,0 +1,10 @@
+\begin{MintedVerbatim}[commandchars=\\\{\}]
+\PYG{n}{mlp} \PYG{o}{=} \PYG{n}{MLPClassifier}\PYG{p}{(}
+    \PYG{n}{hidden\PYGZus{}layer\PYGZus{}sizes}\PYG{o}{=}\PYG{p}{(}\PYG{l+m+mi}{64}\PYG{p}{,} \PYG{l+m+mi}{32}\PYG{p}{),}   \PYG{c+c1}{\PYGZsh{} 2 hidden layers}
+    \PYG{n}{activation}\PYG{o}{=}\PYG{l+s+s2}{\PYGZdq{}relu\PYGZdq{}}\PYG{p}{,}
+    \PYG{n}{solver}\PYG{o}{=}\PYG{l+s+s2}{\PYGZdq{}adam\PYGZdq{}}\PYG{p}{,}
+    \PYG{n}{max\PYGZus{}iter}\PYG{o}{=}\PYG{l+m+mi}{200}\PYG{p}{,}
+    \PYG{n}{random\PYGZus{}state}\PYG{o}{=}\PYG{l+m+mi}{0}\PYG{p}{,}
+    \PYG{n}{early\PYGZus{}stopping}\PYG{o}{=}\PYG{k+kc}{True}
+\PYG{p}{)}
+\end{MintedVerbatim}

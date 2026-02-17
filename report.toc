@@ -1,0 +1,23 @@
+\xpg@aux {}{english}
+\contentsline {section}{\numberline {1}Introduction}{4}{section.1}%
+\contentsline {section}{\numberline {2}Data description}{4}{section.2}%
+\contentsline {subsection}{\numberline {2.1}Feature overview}{4}{subsection.2.1}%
+\contentsline {section}{\numberline {3}Results}{5}{section.3}%
+\contentsline {subsection}{Q1: Exploratory analysis}{5}{section*.4}%
+\contentsline {subsubsection}{Explanation}{7}{section*.9}%
+\contentsline {subsection}{Q2: Gaussian MLE per killer}{8}{section*.10}%
+\contentsline {subsubsection}{Explanation}{12}{section*.19}%
+\contentsline {subsection}{Q3: Multiclass Gaussian Bayes classifier}{13}{section*.20}%
+\contentsline {subsubsection}{Explanation}{14}{section*.23}%
+\contentsline {subsection}{Q4: Linear classifier}{15}{section*.24}%
+\contentsline {subsubsection}{Explanation}{16}{section*.27}%
+\contentsline {subsection}{Q5: Support Vector Machine}{17}{section*.28}%
+\contentsline {subsubsection}{Explanation}{18}{section*.32}%
+\contentsline {subsection}{Q6: Multi-Layer Perceptron}{19}{section*.33}%
+\contentsline {subsubsection}{Explanation}{20}{section*.35}%
+\contentsline {subsection}{Q7: Principal Component Analysis}{21}{section*.36}%
+\contentsline {subsubsection}{Explanation}{22}{section*.39}%
+\contentsline {subsection}{Q8: $k$-means in PCA space}{23}{section*.40}%
+\contentsline {subsubsection}{Explanation}{24}{section*.41}%
+\contentsline {section}{\numberline {4}Discussion and conclusions}{25}{section.4}%
+\contentsline {section}{\numberline {5}LLM prompts and responses}{27}{section.5}%
