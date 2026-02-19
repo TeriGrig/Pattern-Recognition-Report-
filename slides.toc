@@ -1,0 +1,13 @@
+\xpg@aux {}{english}
+\beamer@sectionintoc {1}{Introduction}{3}{0}{1}
+\beamer@sectionintoc {2}{Data Description}{4}{0}{2}
+\beamer@sectionintoc {3}{Exploratory Analysis}{5}{0}{3}
+\beamer@sectionintoc {4}{Gaussian MLE per Killer}{7}{0}{4}
+\beamer@sectionintoc {5}{Gaussian Bayes Classifier}{9}{0}{5}
+\beamer@sectionintoc {6}{Linear Classifier}{11}{0}{6}
+\beamer@sectionintoc {7}{Support Vector Machine}{13}{0}{7}
+\beamer@sectionintoc {8}{Multi-Layer Perceptron}{15}{0}{8}
+\beamer@sectionintoc {9}{Principal Component Analysis}{17}{0}{9}
+\beamer@sectionintoc {10}{k-means Clustering}{19}{0}{10}
+\beamer@sectionintoc {11}{Results Comparison}{21}{0}{11}
+\beamer@sectionintoc {12}{Conclusions}{23}{0}{12}
