@@ -62,8 +62,7 @@ MLP neural network, and an unsupervised PCA + k-means approach with majority-vot
 split and applied to VAL and TEST to avoid data leakage. PCA was used both for visualization and as a preprocessing step for k-means. On the validation set, nonlinear models 
 (SVM and MLP) achieved the best performance, outperforming the Gaussian Bayes and linear classifiers. The PCA + k-means approach achieved lower accuracy, indicating that natural 
 clusters in feature space do not perfectly align with killer identities. Overall, the features that proved to be of the most importance were those related with the victim and the 
-crime scene. Last but not least, modeling nonlinear decision boundaries significantly improved classification performance. \\[1em]
-
+crime scene. Last but not least, modeling nonlinear decision boundaries significantly improved classification performance. \\[0.5em]
 Collectively, in order to classify data and reach our final prediction we followed the following steps.
 \begin{itemize}
   \item MLE (Maximum Likelihood Estimation)
@@ -76,8 +75,6 @@ Collectively, in order to classify data and reach our final prediction we follow
 \end{itemize} 
 \end{abstract}
 
-
-
 \newpage
 
 \tableofcontents
@@ -87,7 +84,43 @@ Collectively, in order to classify data and reach our final prediction we follow
 % --------------------------------------------------------------
 \section{Introduction}
 
-In the current project we were asked to identify the most likely killer for each crime incident in the ``Piraeus Vice'' data set. 
+In the current project we were asked to identify the most likely killer for each crime incident in the ``Piraeus Vice'' dataset. This is formulated as a multiclass
+classification problem, where each of the incidents must be related to one of the 8 possible killers based on the available features. So, the task is to build models 
+that can accurately predict the killer ID. \\[0.5em]
+Each row in the dataset corresponds to a single crime incident and contains the following features:
+
+\begin{itemize}
+  \item The hour that the crime was commited
+  \item The latitude and the lotitude, together forming the coordinates of the crime scene
+  \item The victim's age
+  \item The prevailing temperature at the time the crime was commited
+  \item The prevailing humidity at the time the crime took place
+  \item The distance between the crime scene and the nearest police precinct
+  \item The population density of the area
+  \item The weapon type (knife, handgun 9mm, revolver .38, shotgun, blunt object, unknown)
+  \item The scene type (street, residence, business, other)
+  \item The prevailing weather conditions (clear, rain, snow, fog, unknown)
+  \item The victim gender (male, female)
+  \item The incident ID
+  \item The partition type (TRAIN, VAL, TEST)
+  \item The killer ID (1 ... 8)
+\end{itemize} 
+
+\textbf{Comment:} Further analysis will follow in section 2. \\[0.5em]
+The main steps of analysis we are instructed to use are:
+
+\begin{itemize}
+  \item Q1: Exploratory Data Analysis
+  \item Q2: Parameter Estimation (MLE)
+  \item Q3: Gaussian Bayes Classifier
+  \item Q4: Linear Classifier
+  \item Q5: Support Vector MAchine (SVM)
+  \item Q6: Multilayer Perceptron (MLP)
+  \item Q7: Principal Component Analysis (PCA)
+  \item Q8: PCA + k-means
+\end{itemize}
+
+\newpage
 
 \begin{figure}[h]
   \centering
@@ -100,7 +133,7 @@ In the current project we were asked to identify the most likely killer for each
 % --------------------------------------------------------------
 \section{Data description}
 
-Τhe csv file we were given consists of a total of 4.800 rows, each one representing one crime incident. Also, it consists of 15 columns, one for each feature.
+Τhe csv file we were given consists of a total of 4.800 rows, each one representing one crime incident. As we have already mentioned, it consists of 15 columns, one for each feature.
 An overview of these features and their corresponding types follows in section 2.1. The dataset contains a predefined split column that is either TRAIN, VAL or 
 TEST. This means that the data is already partitioned for modeling and evaluation. As far as we can tell the dataset is not standardised or normalised. 
 
@@ -469,7 +502,7 @@ features (hour\_float, latitude, longitude, victim\_age, temp\_c, humidity, dist
 (weapon\_code, scene\_type, weather, vic\_gender). We implemented the linear classifier given. We trained the model on the TRAIN split using MSE 
 (Mean Squared Error loss). Lastly, we valuate the accuracy and the confusion matrix and produce the 2D PCA overlaying the one from Q3.\\
 
-Note to teacher: As you may have noticed if you have run our code, on the terminal also appear the Q3's results. Everything on terminal is exclusively 
+\textbf{Note to teacher:} As you may have noticed if you have run our code, on the terminal also appear the Q3's results. Everything on terminal is exclusively 
 for our convenience in order to make sure all things run smoothly and are executed correctly. It should not consern you as we have provided you with 
 Q4's results in the previous section.
 
@@ -714,31 +747,272 @@ modules) and how to reproduce:
 \end{itemize}
 
 % --------------------------------------------------------------
-% \appendix
-
-% \section{Additional figures and tables}
-
-% Place any extra plots or tables here that do not fit into the main text.
 \newpage
 
 \section{LLM prompts and responses}
 
-If you used ChatGPT or any other LLM, list all prompts and the
-corresponding responses you used during the preparation of this project.
+The contribution of an AI, specifically Copilot, in this project was  purely auxiliary. In general, we consulted Copilot in order to provide 
+us with formulas, types, libraries and assistance in diagrams' creation. In particular, we list all prompts and the 
+corresponding responses we used during the preparation of this project.\\
 
-\subsection*{Example format}
+\textbf{Comment:} As far as Q3 is concerned, we asked Copilot how we can create a 2D PCA projection, as we were facing some problems. 
+Also, we asked how we can include a legend box that would contain the killers and their corresponding colors.
+Unfortunately, we are unable to find the corresponding prompt and response. \\
+In Q4 we asked Copilot how we can make a 2D PCA projection that overlays the one created in Q3.\\
 
 \textbf{Prompt:}
-\begin{verbatim}
-Explain how to compute a covariance matrix from data.
-\end{verbatim}
+Πως μπορούν να δημιουργηθούν PCA και πως μπορώ να τα κάνω overlay?
 
 \textbf{Response:}
-\begin{verbatim}
-[Paste the model's response here...]
-\end{verbatim}
+\begin{figure}[h]
+    \centering
+    \begin{minipage}[b]{0.49\textwidth}
+        \centering
+        \includegraphics[height=5cm, keepaspectratio]{./images/LLM answers/1.png}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[b]{0.49\textwidth}
+        \centering
+        \includegraphics[height=5cm, keepaspectratio]{./images/LLM answers/2.png}
+    \end{minipage}
+\end{figure}
 
-\textbf{Comment:} We checked the formulas and then implemented them
-independently.
+\begin{figure}[h]
+    \centering
+    \begin{minipage}[b]{0.49\textwidth}
+        \centering
+        \includegraphics[height=5cm, keepaspectratio]{./images/LLM answers/3.png}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[b]{0.49\textwidth}
+        \centering
+        \includegraphics[height=5cm, keepaspectratio]{./images/LLM answers/4.png}
+    \end{minipage}
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \begin{minipage}[b]{0.49\textwidth}
+        \centering
+        \includegraphics[height=5cm, keepaspectratio]{./images/LLM answers/5.png}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[b]{0.49\textwidth}
+        \centering
+        \includegraphics[height=5cm, keepaspectratio]{./images/LLM answers/6.png}
+    \end{minipage}
+\end{figure}
+
+\newpage
+
+\begin{figure}[h]
+    \centering
+    \begin{minipage}[b]{0.49\textwidth}
+        \centering
+        \includegraphics[height=5cm, keepaspectratio]{./images/LLM answers/7.png}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[b]{0.49\textwidth}
+        \centering
+        \includegraphics[height=5cm, keepaspectratio]{./images/LLM answers/8.png}
+    \end{minipage}
+    \\[1em]
+\end{figure}
+
+\textbf{Prompt:}
+Tί είναι το rbf kernel και πως μπορώ να το χρησιμοποιήσω σε python?
+
+\textbf{Response:}
+\begin{figure}[h]
+    \centering
+    \begin{minipage}[b]{0.49\textwidth}
+        \centering
+        \includegraphics[height=5cm, keepaspectratio]{./images/LLM answers/9.png}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[b]{0.49\textwidth}
+        \centering
+        \includegraphics[height=5cm, keepaspectratio]{./images/LLM answers/10.png}
+    \end{minipage}
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \begin{minipage}[b]{0.49\textwidth}
+        \centering
+        \includegraphics[height=5cm, keepaspectratio]{./images/LLM answers/11.png}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[b]{0.49\textwidth}
+        \centering
+        \includegraphics[height=5cm, keepaspectratio]{./images/LLM answers/12.png}
+    \end{minipage}
+\end{figure}
+
+\newpage
+\begin{figure}[h]
+    \centering
+    \begin{minipage}[b]{0.51\textwidth}
+        \includegraphics[width=\textwidth]{./images/LLM answers/13.png}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[b]{0.47\textwidth}
+        \includegraphics[width=\textwidth]{./images/LLM answers/14.png}
+    \end{minipage}
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.6\textwidth]{./images/LLM answers/15.png}
+    \\[1em]
+\end{figure}
+
+\textbf{Prompt:}
+Στο q6, τι είναι το baseline accuracy και πως κάνουμε shuffle?
+
+\textbf{Response:}
+\begin{figure}[h]
+    \centering
+    \begin{minipage}[b]{0.49\textwidth}
+        \centering
+        \includegraphics[height=5cm, keepaspectratio]{./images/LLM answers/16.png}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[b]{0.49\textwidth}
+        \centering
+        \includegraphics[height=5cm, keepaspectratio]{./images/LLM answers/17.png}
+    \end{minipage}
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \begin{minipage}[b]{0.49\textwidth}
+        \centering
+        \includegraphics[height=5cm, keepaspectratio]{./images/LLM answers/18.png}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[b]{0.49\textwidth}
+        \centering
+        \includegraphics[height=5cm, keepaspectratio]{./images/LLM answers/19.png}
+    \end{minipage}
+\end{figure}
+
+\newpage
+
+\begin{figure}[h]
+    \centering
+    \begin{minipage}[b]{0.49\textwidth}
+        \centering
+        \includegraphics[height=5cm, keepaspectratio]{./images/LLM answers/20.png}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[b]{0.49\textwidth}
+        \centering
+        \includegraphics[height=5cm, keepaspectratio]{./images/LLM answers/21.png}
+    \end{minipage}
+    \\[1em]
+\end{figure}
+
+\textbf{Prompt:}
+Aυτός ο κώδικας απαντά στο ερώτημα? 
+
+\begin{minted}[
+    linenos,                
+    breaklines=true,        
+    breakanywhere=true,     
+    breakautoindent=true,   
+    bgcolor= gray!10,       
+    fontsize=\small
+]{python}
+acc = accuracy_score(y_val, pred_val) 
+print(f"VAL Accuracy: {acc}") 
+
+# ======================== 
+# Permutation Feature Importance 
+# ======================== 
+
+# Baseline 
+accuracy A_base = acc 
+
+# Get feature names after one-hot encoding 
+ohe = model.named_steps["pre"].named_transformers_["onehot"] 
+ohe_names = ohe.get_feature_names_out(CAT) 
+all_feat = CONT + list(ohe_names) 
+
+# Transform VAL once 
+Z_val = model.named_steps["pre"].transform(X_val) 
+
+importances = [] rng = np.random.default_rng(0) 
+
+for j in range(Z_val.shape[1]): 
+  Zp = Z_val.copy() 
+  Zp[:, j] = rng.permutation(Zp[:, j]) # permute one feature 
+  pred = model.named_steps["mlp"].predict(Zp) 
+  Aj = accuracy_score(y_val, pred) 
+  importances.append((all_feat[j], A_base - Aj)) 
+
+# Sort by importance 
+importances.sort(key=lambda x: x[1], reverse=True) 
+top5 = importances[:5] 
+
+print("\nTop 5 Most Important Features:") 
+for name, imp in top5: 
+  print(f"{name:35s} ΔA = {imp}") 
+
+# ======================== 
+# Plot top 5 
+# ======================== 
+
+names = [x[0] for x in top5] 
+values = [x[1] for x in top5] 
+
+plt.figure(figsize=(7,4)) 
+plt.barh(names, values, color="skyblue")
+plt.gca().invert_yaxis() 
+plt.title("Top 5 Most Important Features (MLP)") 
+plt.xlabel("Drop in Accuracy (ΔA)") 
+plt.tight_layout() 
+plt.savefig("q6_top5_features.png", dpi=150)
+\end{minted} 
+
+\textbf{Response:}
+\begin{figure}[h]
+    \centering
+    \begin{minipage}[b]{0.49\textwidth}
+        \centering
+        \includegraphics[height=5cm, keepaspectratio]{./images/LLM answers/22.png}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[b]{0.49\textwidth}
+        \centering
+        \includegraphics[height=5cm, keepaspectratio]{./images/LLM answers/23.png}
+    \end{minipage}
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \begin{minipage}[b]{0.49\textwidth}
+        \centering
+        \includegraphics[height=5cm, keepaspectratio]{./images/LLM answers/24.png}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[b]{0.49\textwidth}
+        \centering
+        \includegraphics[height=5cm, keepaspectratio]{./images/LLM answers/25.png}
+    \end{minipage}
+\end{figure}
+
+\newpage
+
+\begin{figure}[h]
+    \centering
+    \begin{minipage}[b]{0.5\textwidth}
+        \includegraphics[width=\textwidth]{./images/LLM answers/26.png}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[b]{0.48\textwidth}
+        \includegraphics[width=\textwidth]{./images/LLM answers/27.png}
+    \end{minipage}
+\end{figure}
 
 \end{document}

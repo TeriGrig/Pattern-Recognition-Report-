@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999997 (MiKTeX 25.4) (preloaded format=xelatex 2025.12.16)  19 FEB 2026 13:50
+This is XeTeX, Version 3.141592653-2.6-0.999997 (MiKTeX 25.4) (preloaded format=xelatex 2025.12.16)  19 FEB 2026 18:53
 entering extended mode
  \write18 enabled.
  file:line:error style messages enabled.
@@ -767,24 +767,19 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 [1
 
 ]
-Overfull \hbox (7.1996pt too wide) in paragraph at lines 59--66
+Overfull \hbox (7.1996pt too wide) in paragraph at lines 59--68
 \TU/TimesNewRoman(0)/m/n/10 We first estimated class-specific means and covaria
 nces using Maximum Likelihood Estimation (MLE),
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 59--66
-
  []
 
 [2] (report.toc)
 \tf@toc=\write5
 \openout5 = `report.toc'.
 
- [3]
+ [3] [4]
 File: example-image-duck.pdf Graphic file (type pdf)
 <use example-image-duck.pdf>
- [4]
+ [5]
 File: ./images/Q1_diagrams/q1_hist_hour_float.png Graphic file (type bmp)
 <./images/Q1_diagrams/q1_hist_hour_float.png>
 File: ./images/Q1_diagrams/q1_hist_victim_age.png Graphic file (type bmp)
@@ -796,8 +791,8 @@ File: ./images/Q1_diagrams/q1_hist_longitude.png Graphic file (type bmp)
 File: ./images/Q1_diagrams/q1_hour_float_single_vs_gmm.png Graphic file (type b
 mp)
 <./images/Q1_diagrams/q1_hour_float_single_vs_gmm.png>
- [5]
-Overfull \hbox (12.69565pt too wide) in paragraph at lines 178--180
+ [6]
+Overfull \hbox (12.69565pt too wide) in paragraph at lines 211--213
 []\TU/TimesNewRoman(0)/m/n/10.95 Also, we provide you with the additional two-d
 imensional plot involving \TU/lmtt/m/n/10.95 hour_float \TU/TimesNewRoman(0)/m/
 n/10.95 and \TU/lmtt/m/n/10.95 longtitude\TU/TimesNewRoman(0)/m/n/10.95 .
@@ -807,23 +802,23 @@ File: ./images/Q1_diagrams/q1_scatter_hour_vs_longitude.png Graphic file (type
 bmp)
 <./images/Q1_diagrams/q1_scatter_hour_vs_longitude.png>
 
-Underfull \hbox (badness 10000) in paragraph at lines 199--202
+Underfull \hbox (badness 10000) in paragraph at lines 232--235
 
  []
 
-[6]
-Underfull \hbox (badness 10000) in paragraph at lines 218--219
+[7]
+Underfull \hbox (badness 10000) in paragraph at lines 251--252
 
  []
 
 \pydata@fh@0=\write6
 \openout6 = `_E98D2F001DA5678B39482EFBDF5770DC.data.minted'.
 
-runsystem(latexminted config  --timestamp 20260219135032 E98D2F001DA5678B39482E
+runsystem(latexminted config  --timestamp 20260219185320 E98D2F001DA5678B39482E
 FBDF5770DC)...executed.
 
 (_E98D2F001DA5678B39482EFBDF5770DC.config.minted)
-runsystem(latexminted cleanconfig  --timestamp 20260219135032 E98D2F001DA5678B3
+runsystem(latexminted cleanconfig  --timestamp 20260219185320 E98D2F001DA5678B3
 9482EFBDF5770DC)...executed.
 
  (_minted/tango.style.minted)
@@ -855,7 +850,7 @@ Missing character: There is no τ in font [lmmono10-regular]:!
 Missing character: There is no α in font [lmmono10-regular]:!
 Missing character: There is no μ in font [lmmono10-regular]:!
 Missing character: There is no μ in font [lmmono10-regular]:!
-) [7]
+) [8]
 File: ./images/Q2_diagrams/Q2_diagrams_covariance/q2_covariance_k1.png Graphic 
 file (type bmp)
 <./images/Q2_diagrams/Q2_diagrams_covariance/q2_covariance_k1.png>
@@ -870,7 +865,7 @@ File: ./images/Q2_diagrams/Q2_diagrams_ellipse/q2_ellipse_hour_float_longitude_
 k2.png Graphic file (type bmp)
 <./images/Q2_diagrams/Q2_diagrams_ellipse/q2_ellipse_hour_float_longitude_k2.pn
 g>
- [8]
+ [9]
 File: ./images/Q2_diagrams/Q2_diagrams_covariance/q2_covariance_k3.png Graphic 
 file (type bmp)
 <./images/Q2_diagrams/Q2_diagrams_covariance/q2_covariance_k3.png>
@@ -885,7 +880,7 @@ File: ./images/Q2_diagrams/Q2_diagrams_ellipse/q2_ellipse_hour_float_longitude_
 k4.png Graphic file (type bmp)
 <./images/Q2_diagrams/Q2_diagrams_ellipse/q2_ellipse_hour_float_longitude_k4.pn
 g>
- [9]
+ [10]
 File: ./images/Q2_diagrams/Q2_diagrams_covariance/q2_covariance_k5.png Graphic 
 file (type bmp)
 <./images/Q2_diagrams/Q2_diagrams_covariance/q2_covariance_k5.png>
@@ -900,7 +895,7 @@ File: ./images/Q2_diagrams/Q2_diagrams_ellipse/q2_ellipse_hour_float_longitude_
 k6.png Graphic file (type bmp)
 <./images/Q2_diagrams/Q2_diagrams_ellipse/q2_ellipse_hour_float_longitude_k6.pn
 g>
- [10]
+ [11]
 File: ./images/Q2_diagrams/Q2_diagrams_covariance/q2_covariance_k7.png Graphic 
 file (type bmp)
 <./images/Q2_diagrams/Q2_diagrams_covariance/q2_covariance_k7.png>
@@ -915,27 +910,27 @@ File: ./images/Q2_diagrams/Q2_diagrams_ellipse/q2_ellipse_hour_float_longitude_
 k8.png Graphic file (type bmp)
 <./images/Q2_diagrams/Q2_diagrams_ellipse/q2_ellipse_hour_float_longitude_k8.pn
 g>
- [11] [12]
-Underfull \hbox (badness 10000) in paragraph at lines 394--396
+ [12] [13]
+Underfull \hbox (badness 10000) in paragraph at lines 427--429
 
  []
 
 File: ./images/Q3_diagrams/q3_PCA_with_consistent_legend.png Graphic file (type
  bmp)
 <./images/Q3_diagrams/q3_PCA_with_consistent_legend.png>
-[13] [14]
-Underfull \hbox (badness 10000) in paragraph at lines 445--449
+[14] [15]
+Underfull \hbox (badness 10000) in paragraph at lines 478--482
 
  []
 
 File: ./images/Q4_diagrams/q4_overlay_on_q3_pca.png Graphic file (type bmp)
 <./images/Q4_diagrams/q4_overlay_on_q3_pca.png>
-[15]
-Underfull \hbox (badness 10000) in paragraph at lines 467--471
+[16]
+Underfull \hbox (badness 10000) in paragraph at lines 500--504
 
  []
 
-[16]
+[17]
 File: ./images/Q5_diagrams/q5_decision_regions_pca2_rbf.png Graphic file (type 
 bmp)
 <./images/Q5_diagrams/q5_decision_regions_pca2_rbf.png>
@@ -946,34 +941,122 @@ mp)
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-[17] (_minted/58C8A1635DB0FF10A2A0BAD80034B157.highlight.minted) [18]
-Underfull \hbox (badness 10000) in paragraph at lines 554--556
+[18] (_minted/58C8A1635DB0FF10A2A0BAD80034B157.highlight.minted) [19]
+Underfull \hbox (badness 10000) in paragraph at lines 587--589
 
  []
 
 File: ./images/Q6_diagrams/q6_top5_features.png Graphic file (type bmp)
 <./images/Q6_diagrams/q6_top5_features.png>
-[19] (_minted/C5BEE5FABBF8FFBBC19109421926173B.highlight.minted) [20]
+[20] (_minted/C5BEE5FABBF8FFBBC19109421926173B.highlight.minted) [21]
 File: ./images/Q7_diagrams/q7_scree_plot.png Graphic file (type bmp)
 <./images/Q7_diagrams/q7_scree_plot.png>
 File: ./images/Q7_diagrams/q7_pca2_svm_colours.png Graphic file (type bmp)
 <./images/Q7_diagrams/q7_pca2_svm_colours.png>
- [21]
-(_minted/21F228E2BC413E11237FF425187FC683.highlight.minted) [22]
+ [22]
+(_minted/21F228E2BC413E11237FF425187FC683.highlight.minted) [23]
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 646.
+(hyperref)                removing `math shift' on input line 679.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 646.
+(hyperref)                removing `math shift' on input line 679.
 
-[23] [24]
-Underfull \hbox (badness 10000) in paragraph at lines 693--695
+[24] [25]
+Underfull \hbox (badness 10000) in paragraph at lines 726--728
 
  []
 
-[25] [26] [27] (report.aux)
+[26] [27]
+Underfull \hbox (badness 10000) in paragraph at lines 754--757
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 758--762
+
+ []
+
+File: ./images/LLM answers/1.png Graphic file (type bmp)
+<./images/LLM answers/1.png>
+File: ./images/LLM answers/2.png Graphic file (type bmp)
+<./images/LLM answers/2.png>
+
+Overfull \hbox (4.55623pt too wide) in paragraph at lines 776--777
+ [][] 
+ []
+
+File: ./images/LLM answers/3.png Graphic file (type bmp)
+<./images/LLM answers/3.png>
+File: ./images/LLM answers/4.png Graphic file (type bmp)
+<./images/LLM answers/4.png>
+File: ./images/LLM answers/5.png Graphic file (type bmp)
+<./images/LLM answers/5.png>
+File: ./images/LLM answers/6.png Graphic file (type bmp)
+<./images/LLM answers/6.png>
+[28]
+File: ./images/LLM answers/7.png Graphic file (type bmp)
+<./images/LLM answers/7.png>
+File: ./images/LLM answers/8.png Graphic file (type bmp)
+<./images/LLM answers/8.png>
+File: ./images/LLM answers/9.png Graphic file (type bmp)
+<./images/LLM answers/9.png>
+File: ./images/LLM answers/10.png Graphic file (type bmp)
+<./images/LLM answers/10.png>
+File: ./images/LLM answers/11.png Graphic file (type bmp)
+<./images/LLM answers/11.png>
+File: ./images/LLM answers/12.png Graphic file (type bmp)
+<./images/LLM answers/12.png>
+
+Overfull \hbox (3.34209pt too wide) in paragraph at lines 848--849
+ [][] 
+ []
+
+[29]
+File: ./images/LLM answers/13.png Graphic file (type bmp)
+<./images/LLM answers/13.png>
+File: ./images/LLM answers/14.png Graphic file (type bmp)
+<./images/LLM answers/14.png>
+File: ./images/LLM answers/15.png Graphic file (type bmp)
+<./images/LLM answers/15.png>
+File: ./images/LLM answers/16.png Graphic file (type bmp)
+<./images/LLM answers/16.png>
+File: ./images/LLM answers/17.png Graphic file (type bmp)
+<./images/LLM answers/17.png>
+File: ./images/LLM answers/18.png Graphic file (type bmp)
+<./images/LLM answers/18.png>
+File: ./images/LLM answers/19.png Graphic file (type bmp)
+<./images/LLM answers/19.png>
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+[30]
+File: ./images/LLM answers/20.png Graphic file (type bmp)
+<./images/LLM answers/20.png>
+File: ./images/LLM answers/21.png Graphic file (type bmp)
+<./images/LLM answers/21.png>
+ (_minted/3C530A63B2F408756E9069082615DF9D.highlight.minted [31])
+File: ./images/LLM answers/22.png Graphic file (type bmp)
+<./images/LLM answers/22.png>
+File: ./images/LLM answers/23.png Graphic file (type bmp)
+<./images/LLM answers/23.png>
+
+Overfull \hbox (3.30046pt too wide) in paragraph at lines 988--989
+ [][] 
+ []
+
+File: ./images/LLM answers/24.png Graphic file (type bmp)
+<./images/LLM answers/24.png>
+File: ./images/LLM answers/25.png Graphic file (type bmp)
+<./images/LLM answers/25.png>
+[32]
+File: ./images/LLM answers/26.png Graphic file (type bmp)
+<./images/LLM answers/26.png>
+File: ./images/LLM answers/27.png Graphic file (type bmp)
+<./images/LLM answers/27.png>
+ [33] (report.aux)
  ***********
 LaTeX2e <2025-11-01>
 L3 programming layer <2025-11-06>
@@ -982,12 +1065,12 @@ Package rerunfilecheck Info: File `report.out' has not changed.
 (rerunfilecheck)             Checksum: 3993C43282360C1DDB547DAFFED1C96F;3305.
  ) 
 Here is how much of TeX's memory you used:
- 20910 strings out of 402987
- 455122 string characters out of 5448523
+ 21229 strings out of 402987
+ 464481 string characters out of 5448523
  1109878 words of memory out of 5000000
- 49294 multiletter control sequences out of 15000+600000
+ 49582 multiletter control sequences out of 15000+600000
  636808 words of font info for 117 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
- 74i,9n,93p,588b,988s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 74i,9n,93p,588b,1086s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
-Output written on report.pdf (27 pages).
+Output written on report.pdf (33 pages).

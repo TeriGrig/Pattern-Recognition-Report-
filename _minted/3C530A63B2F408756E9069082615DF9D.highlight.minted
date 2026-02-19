@@ -1,0 +1,51 @@
+\begin{MintedVerbatim}[commandchars=\\\{\}]
+\PYG{n}{acc} \PYG{o}{=} \PYG{n}{accuracy\PYGZus{}score}\PYG{p}{(}\PYG{n}{y\PYGZus{}val}\PYG{p}{,} \PYG{n}{pred\PYGZus{}val}\PYG{p}{)}
+\PYG{n+nb}{print}\PYG{p}{(}\PYG{l+s+sa}{f}\PYG{l+s+s2}{\PYGZdq{}VAL Accuracy: }\PYG{l+s+si}{\PYGZob{}}\PYG{n}{acc}\PYG{l+s+si}{\PYGZcb{}}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{)}
+
+\PYG{c+c1}{\PYGZsh{} ========================}
+\PYG{c+c1}{\PYGZsh{} Permutation Feature Importance}
+\PYG{c+c1}{\PYGZsh{} ========================}
+
+\PYG{c+c1}{\PYGZsh{} Baseline}
+\PYG{n}{accuracy} \PYG{n}{A\PYGZus{}base} \PYG{o}{=} \PYG{n}{acc}
+
+\PYG{c+c1}{\PYGZsh{} Get feature names after one\PYGZhy{}hot encoding}
+\PYG{n}{ohe} \PYG{o}{=} \PYG{n}{model}\PYG{o}{.}\PYG{n}{named\PYGZus{}steps}\PYG{p}{[}\PYG{l+s+s2}{\PYGZdq{}pre\PYGZdq{}}\PYG{p}{]}\PYG{o}{.}\PYG{n}{named\PYGZus{}transformers\PYGZus{}}\PYG{p}{[}\PYG{l+s+s2}{\PYGZdq{}onehot\PYGZdq{}}\PYG{p}{]}
+\PYG{n}{ohe\PYGZus{}names} \PYG{o}{=} \PYG{n}{ohe}\PYG{o}{.}\PYG{n}{get\PYGZus{}feature\PYGZus{}names\PYGZus{}out}\PYG{p}{(}\PYG{n}{CAT}\PYG{p}{)}
+\PYG{n}{all\PYGZus{}feat} \PYG{o}{=} \PYG{n}{CONT} \PYG{o}{+} \PYG{n+nb}{list}\PYG{p}{(}\PYG{n}{ohe\PYGZus{}names}\PYG{p}{)}
+
+\PYG{c+c1}{\PYGZsh{} Transform VAL once}
+\PYG{n}{Z\PYGZus{}val} \PYG{o}{=} \PYG{n}{model}\PYG{o}{.}\PYG{n}{named\PYGZus{}steps}\PYG{p}{[}\PYG{l+s+s2}{\PYGZdq{}pre\PYGZdq{}}\PYG{p}{]}\PYG{o}{.}\PYG{n}{transform}\PYG{p}{(}\PYG{n}{X\PYGZus{}val}\PYG{p}{)}
+
+\PYG{n}{importances} \PYG{o}{=} \PYG{p}{[]} \PYG{n}{rng} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{random}\PYG{o}{.}\PYG{n}{default\PYGZus{}rng}\PYG{p}{(}\PYG{l+m+mi}{0}\PYG{p}{)}
+
+\PYG{k}{for} \PYG{n}{j} \PYG{o+ow}{in} \PYG{n+nb}{range}\PYG{p}{(}\PYG{n}{Z\PYGZus{}val}\PYG{o}{.}\PYG{n}{shape}\PYG{p}{[}\PYG{l+m+mi}{1}\PYG{p}{]):}
+  \PYG{n}{Zp} \PYG{o}{=} \PYG{n}{Z\PYGZus{}val}\PYG{o}{.}\PYG{n}{copy}\PYG{p}{()}
+  \PYG{n}{Zp}\PYG{p}{[:,} \PYG{n}{j}\PYG{p}{]} \PYG{o}{=} \PYG{n}{rng}\PYG{o}{.}\PYG{n}{permutation}\PYG{p}{(}\PYG{n}{Zp}\PYG{p}{[:,} \PYG{n}{j}\PYG{p}{])} \PYG{c+c1}{\PYGZsh{} permute one feature}
+  \PYG{n}{pred} \PYG{o}{=} \PYG{n}{model}\PYG{o}{.}\PYG{n}{named\PYGZus{}steps}\PYG{p}{[}\PYG{l+s+s2}{\PYGZdq{}mlp\PYGZdq{}}\PYG{p}{]}\PYG{o}{.}\PYG{n}{predict}\PYG{p}{(}\PYG{n}{Zp}\PYG{p}{)}
+  \PYG{n}{Aj} \PYG{o}{=} \PYG{n}{accuracy\PYGZus{}score}\PYG{p}{(}\PYG{n}{y\PYGZus{}val}\PYG{p}{,} \PYG{n}{pred}\PYG{p}{)}
+  \PYG{n}{importances}\PYG{o}{.}\PYG{n}{append}\PYG{p}{((}\PYG{n}{all\PYGZus{}feat}\PYG{p}{[}\PYG{n}{j}\PYG{p}{],} \PYG{n}{A\PYGZus{}base} \PYG{o}{\PYGZhy{}} \PYG{n}{Aj}\PYG{p}{))}
+
+\PYG{c+c1}{\PYGZsh{} Sort by importance}
+\PYG{n}{importances}\PYG{o}{.}\PYG{n}{sort}\PYG{p}{(}\PYG{n}{key}\PYG{o}{=}\PYG{k}{lambda} \PYG{n}{x}\PYG{p}{:} \PYG{n}{x}\PYG{p}{[}\PYG{l+m+mi}{1}\PYG{p}{],} \PYG{n}{reverse}\PYG{o}{=}\PYG{k+kc}{True}\PYG{p}{)}
+\PYG{n}{top5} \PYG{o}{=} \PYG{n}{importances}\PYG{p}{[:}\PYG{l+m+mi}{5}\PYG{p}{]}
+
+\PYG{n+nb}{print}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+se}{\PYGZbs{}n}\PYG{l+s+s2}{Top 5 Most Important Features:\PYGZdq{}}\PYG{p}{)}
+\PYG{k}{for} \PYG{n}{name}\PYG{p}{,} \PYG{n}{imp} \PYG{o+ow}{in} \PYG{n}{top5}\PYG{p}{:}
+  \PYG{n+nb}{print}\PYG{p}{(}\PYG{l+s+sa}{f}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+si}{\PYGZob{}}\PYG{n}{name}\PYG{l+s+si}{:}\PYG{l+s+s2}{35s}\PYG{l+s+si}{\PYGZcb{}}\PYG{l+s+s2}{ ΔA = }\PYG{l+s+si}{\PYGZob{}}\PYG{n}{imp}\PYG{l+s+si}{\PYGZcb{}}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{)}
+
+\PYG{c+c1}{\PYGZsh{} ========================}
+\PYG{c+c1}{\PYGZsh{} Plot top 5}
+\PYG{c+c1}{\PYGZsh{} ========================}
+
+\PYG{n}{names} \PYG{o}{=} \PYG{p}{[}\PYG{n}{x}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{]} \PYG{k}{for} \PYG{n}{x} \PYG{o+ow}{in} \PYG{n}{top5}\PYG{p}{]}
+\PYG{n}{values} \PYG{o}{=} \PYG{p}{[}\PYG{n}{x}\PYG{p}{[}\PYG{l+m+mi}{1}\PYG{p}{]} \PYG{k}{for} \PYG{n}{x} \PYG{o+ow}{in} \PYG{n}{top5}\PYG{p}{]}
+
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{figure}\PYG{p}{(}\PYG{n}{figsize}\PYG{o}{=}\PYG{p}{(}\PYG{l+m+mi}{7}\PYG{p}{,}\PYG{l+m+mi}{4}\PYG{p}{))}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{barh}\PYG{p}{(}\PYG{n}{names}\PYG{p}{,} \PYG{n}{values}\PYG{p}{,} \PYG{n}{color}\PYG{o}{=}\PYG{l+s+s2}{\PYGZdq{}skyblue\PYGZdq{}}\PYG{p}{)}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{gca}\PYG{p}{()}\PYG{o}{.}\PYG{n}{invert\PYGZus{}yaxis}\PYG{p}{()}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{title}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}Top 5 Most Important Features (MLP)\PYGZdq{}}\PYG{p}{)}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{xlabel}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}Drop in Accuracy (ΔA)\PYGZdq{}}\PYG{p}{)}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{tight\PYGZus{}layout}\PYG{p}{()}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{savefig}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}q6\PYGZus{}top5\PYGZus{}features.png\PYGZdq{}}\PYG{p}{,} \PYG{n}{dpi}\PYG{o}{=}\PYG{l+m+mi}{150}\PYG{p}{)}
+\end{MintedVerbatim}
