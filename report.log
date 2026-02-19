@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999997 (MiKTeX 25.4) (preloaded format=xelatex 2025.12.16)  17 FEB 2026 20:21
+This is XeTeX, Version 3.141592653-2.6-0.999997 (MiKTeX 25.4) (preloaded format=xelatex 2025.12.16)  19 FEB 2026 13:50
 entering extended mode
  \write18 enabled.
  file:line:error style messages enabled.
@@ -751,9 +751,8 @@ LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `bold'
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
-File: C:/Users/terez/Documents/LatexProjects/Crypto_Solutions/images/UNIPI.png 
-Graphic file (type bmp)
-<C:/Users/terez/Documents/LatexProjects/Crypto_Solutions/images/UNIPI.png>
+File: ./images/UNIPI.png Graphic file (type bmp)
+<./images/UNIPI.png>
 LaTeX Font Info:    Trying to load font information for U+msa on input line 54.
 
 (C:\Users\terez\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\umsa.fd
@@ -820,11 +819,11 @@ Underfull \hbox (badness 10000) in paragraph at lines 218--219
 \pydata@fh@0=\write6
 \openout6 = `_E98D2F001DA5678B39482EFBDF5770DC.data.minted'.
 
-runsystem(latexminted config  --timestamp 20260217202142 E98D2F001DA5678B39482E
+runsystem(latexminted config  --timestamp 20260219135032 E98D2F001DA5678B39482E
 FBDF5770DC)...executed.
 
 (_E98D2F001DA5678B39482EFBDF5770DC.config.minted)
-runsystem(latexminted cleanconfig  --timestamp 20260217202142 E98D2F001DA5678B3
+runsystem(latexminted cleanconfig  --timestamp 20260219135032 E98D2F001DA5678B3
 9482EFBDF5770DC)...executed.
 
  (_minted/tango.style.minted)
@@ -984,8 +983,8 @@ Package rerunfilecheck Info: File `report.out' has not changed.
  ) 
 Here is how much of TeX's memory you used:
  20910 strings out of 402987
- 455608 string characters out of 5448523
- 1109932 words of memory out of 5000000
+ 455122 string characters out of 5448523
+ 1109878 words of memory out of 5000000
  49294 multiletter control sequences out of 15000+600000
  636808 words of font info for 117 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
