@@ -30,6 +30,8 @@
 \usepackage{enumitem}
 \usepackage{mwe} % for example-image, example-image-duck, etc.
 
+\usepackage{tikz}
+\usetikzlibrary{positioning, arrows.meta}
 
 \title{
   \includegraphics[width=0.25\textwidth]{./images/UNIPI.png}\\[3em]
@@ -122,13 +124,77 @@ The main steps of analysis we are instructed to use are:
 
 \newpage
 
+\noindent The following picture shows a high-level overview of the killer identification process.\\[1em]
+
 \begin{figure}[h]
-  \centering
-  \includegraphics[width=0.55\textwidth]{example-image-duck}
-  \caption{Humorous placeholder: the ``prime suspect'' before any
-  machine learning. Replace this with a real illustrative figure (e.g.,
-  a high-level pipeline diagram of your method).}
+\centering
+\begin{tikzpicture}[
+    box/.style={
+        rectangle,
+        draw,
+        rounded corners,
+        align=center,
+        minimum width=7cm,
+        minimum height=1cm
+    },
+    smallbox/.style={
+        rectangle,
+        draw,
+        rounded corners,
+        align=center,
+        minimum width=3.2cm,
+        minimum height=0.9cm
+    },
+    arrow/.style={-Latex, thick}
+]
+
+% Top blocks
+
+\node[box] (data) {\textbf{Piraeus Vice Dataset} \\ 
+Continuous + Categorical features \\ 
+TRAIN / VAL / TEST split};
+
+\node[box, below=0.8cm of data] (prep) {\textbf{Preprocessing} \\ 
+StandardScaler + OneHotEncoder \\ 
+(Fitted on TRAIN only)};
+
+% Model row
+
+\node[smallbox, below=1.2cm of prep, xshift=-3.6cm] (bayes) {Gaussian Bayes \\ (MLE + Bayes)};
+\node[smallbox, right=0.5cm of bayes] (linear) {Linear \\ Classifier};
+\node[smallbox, right=0.5cm of linear] (svm) {SVM \\ (RBF)};
+\node[smallbox, right=0.5cm of svm] (mlp) {MLP \\ (64,32)};
+\node[smallbox, right=0.5cm of mlp] (kmeans) {PCA (m=5) \\ + k-means};
+
+\node[box, below=1.2cm of linear] (eval) {\textbf{Evaluation on VAL} \\ 
+Accuracy + Confusion Matrix};
+
+\node[box, below=0.8cm of eval] (test) {\textbf{Final TEST Predictions} \\ 
+Predicted Killer + Probabilities};
+
+% Arrows
+
+\draw[arrow] (data) -- (prep);
+
+\draw[arrow] (prep.south) -- (linear.north);
+\draw[arrow] (prep.south) -- (bayes.north);
+\draw[arrow] (prep.south) -- (svm.north);
+\draw[arrow] (prep.south) -- (mlp.north);
+\draw[arrow] (prep.south) -- (kmeans.north);
+
+\draw[arrow] (bayes.south) -- (eval.north);
+\draw[arrow] (linear.south) -- (eval.north);
+\draw[arrow] (svm.south) -- (eval.north);
+\draw[arrow] (mlp.south) -- (eval.north);
+\draw[arrow] (kmeans.south) -- (eval.north);
+
+\draw[arrow] (eval) -- (test);
+
+\end{tikzpicture}
+\caption{High-level overview of the killer identification pipeline.}
 \end{figure}
+
+\newpage
 
 % --------------------------------------------------------------
 \section{Data description}
