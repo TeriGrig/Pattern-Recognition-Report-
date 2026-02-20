@@ -19,6 +19,7 @@
 \setotherlanguage{greek}
 \setmainfont{Times New Roman}
 \newfontfamily\greekfonttt{Courier New} %Courier New
+\setmonofont{Courier New} % For minted code blocks with Greek support
 \usepackage{minted}
 \usepackage{xcolor}
 \usemintedstyle{tango}  
@@ -833,7 +834,7 @@ The diagrams from each question are stored in a separate folder. The dataset is 
 }
 
 \begin{tcolorbox}[colback=gray!5!white,colframe=gray!75!black,title=Libraries and data load]
-\begin{minted}{python}
+\begin{minted}[breaklines=true, breakautoindent = true, breakanywhere = true]{python}
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -853,6 +854,10 @@ required_cols = ["hour_float", "victim_age", "latitude", "longitude"]
 missing = [c for c in required_cols if c not in df.columns]
 assert not missing, f"Λείπουν στήλες: {missing}"
 \end{minted}
+\tcblower
+In this specific script we load the required libraries and the data from the \texttt{crimes.csv} file.
+We split the data into TRAIN and VAL as it is required for Q1, a similar method is used for all the other questions.
+Lastly, we confirm that all the required columns are present in the dataset. This is a common practice to avoid errors later on.
 \end{tcolorbox}
 
 

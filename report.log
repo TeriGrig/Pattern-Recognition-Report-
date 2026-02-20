@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999997 (MiKTeX 25.4) (preloaded format=xelatex 2026.1.8)  20 FEB 2026 12:12
+This is XeTeX, Version 3.141592653-2.6-0.999997 (MiKTeX 25.4) (preloaded format=xelatex 2026.1.8)  20 FEB 2026 12:35
 entering extended mode
  \write18 enabled.
  file:line:error style messages enabled.
@@ -313,6 +313,25 @@ text;"
 Package fontspec Info: 
 (fontspec)             Font family 'CourierNew(0)' created for font 'Courier
 (fontspec)             New' with options [].
+(fontspec)              
+(fontspec)              This font family consists of the following NFSS
+(fontspec)             series/shapes:
+(fontspec)              
+(fontspec)             - 'normal' (m/n) with NFSS spec.: <->"Courier
+(fontspec)             New/OT:script=latn;language=dflt;"
+(fontspec)             - 'bold' (b/n) with NFSS spec.: <->"Courier
+(fontspec)             New/B/OT:script=latn;language=dflt;"
+(fontspec)             - 'italic' (m/it) with NFSS spec.: <->"Courier
+(fontspec)             New/I/OT:script=latn;language=dflt;"
+(fontspec)             - 'bold italic' (b/it) with NFSS spec.: <->"Courier
+(fontspec)             New/BI/OT:script=latn;language=dflt;"
+
+
+Package fontspec Info: 
+(fontspec)             Font family 'CourierNew(1)' created for font 'Courier
+(fontspec)             New' with options
+(fontspec)             [WordSpace={1,0,0},HyphenChar=None,PunctuationSpace=Word
+Space].
 (fontspec)              
 (fontspec)              This font family consists of the following NFSS
 (fontspec)             series/shapes:
@@ -979,27 +998,27 @@ Package: trimspaces 2009/09/17 v1.1 Trim spaces around a token list
 ) (report.aux)
 \openout1 = `report.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 56.
-LaTeX Font Info:    ... okay on input line 56.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 56.
-LaTeX Font Info:    ... okay on input line 56.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 56.
-LaTeX Font Info:    ... okay on input line 56.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 56.
-LaTeX Font Info:    ... okay on input line 56.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 56.
-LaTeX Font Info:    ... okay on input line 56.
-LaTeX Font Info:    Checking defaults for TU/lmr/m/n on input line 56.
-LaTeX Font Info:    ... okay on input line 56.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 56.
-LaTeX Font Info:    ... okay on input line 56.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 56.
-LaTeX Font Info:    ... okay on input line 56.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 56.
-LaTeX Font Info:    ... okay on input line 56.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 56.
-LaTeX Font Info:    ... okay on input line 56.
-Package hyperref Info: Link coloring ON on input line 56.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 57.
+LaTeX Font Info:    ... okay on input line 57.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 57.
+LaTeX Font Info:    ... okay on input line 57.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 57.
+LaTeX Font Info:    ... okay on input line 57.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 57.
+LaTeX Font Info:    ... okay on input line 57.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 57.
+LaTeX Font Info:    ... okay on input line 57.
+LaTeX Font Info:    Checking defaults for TU/lmr/m/n on input line 57.
+LaTeX Font Info:    ... okay on input line 57.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 57.
+LaTeX Font Info:    ... okay on input line 57.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 57.
+LaTeX Font Info:    ... okay on input line 57.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 57.
+LaTeX Font Info:    ... okay on input line 57.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 57.
+LaTeX Font Info:    ... okay on input line 57.
+Package hyperref Info: Link coloring ON on input line 57.
  (report.out) (report.out)
 \@outlinefile=\write5
 \openout5 = `report.out'.
@@ -1014,50 +1033,406 @@ Package fontspec Info:
 
 \symlegacymaths=\mathgroup6
 LaTeX Font Info:    Overwriting symbol font `legacymaths' in version `bold'
-(Font)                  OT1/cmr/m/n --> OT1/cmr/bx/n on input line 56.
-LaTeX Font Info:    Redeclaring math accent \acute on input line 56.
-LaTeX Font Info:    Redeclaring math accent \grave on input line 56.
-LaTeX Font Info:    Redeclaring math accent \ddot on input line 56.
-LaTeX Font Info:    Redeclaring math accent \tilde on input line 56.
-LaTeX Font Info:    Redeclaring math accent \bar on input line 56.
-LaTeX Font Info:    Redeclaring math accent \breve on input line 56.
-LaTeX Font Info:    Redeclaring math accent \check on input line 56.
-LaTeX Font Info:    Redeclaring math accent \hat on input line 56.
-LaTeX Font Info:    Redeclaring math accent \dot on input line 56.
-LaTeX Font Info:    Redeclaring math accent \mathring on input line 56.
-LaTeX Font Info:    Redeclaring math symbol \Gamma on input line 56.
-LaTeX Font Info:    Redeclaring math symbol \Delta on input line 56.
-LaTeX Font Info:    Redeclaring math symbol \Theta on input line 56.
-LaTeX Font Info:    Redeclaring math symbol \Lambda on input line 56.
-LaTeX Font Info:    Redeclaring math symbol \Xi on input line 56.
-LaTeX Font Info:    Redeclaring math symbol \Pi on input line 56.
-LaTeX Font Info:    Redeclaring math symbol \Sigma on input line 56.
-LaTeX Font Info:    Redeclaring math symbol \Upsilon on input line 56.
-LaTeX Font Info:    Redeclaring math symbol \Phi on input line 56.
-LaTeX Font Info:    Redeclaring math symbol \Psi on input line 56.
-LaTeX Font Info:    Redeclaring math symbol \Omega on input line 56.
-LaTeX Font Info:    Redeclaring math symbol \mathdollar on input line 56.
-LaTeX Font Info:    Redeclaring symbol font `operators' on input line 56.
+(Font)                  OT1/cmr/m/n --> OT1/cmr/bx/n on input line 57.
+LaTeX Font Info:    Redeclaring math accent \acute on input line 57.
+LaTeX Font Info:    Redeclaring math accent \grave on input line 57.
+LaTeX Font Info:    Redeclaring math accent \ddot on input line 57.
+LaTeX Font Info:    Redeclaring math accent \tilde on input line 57.
+LaTeX Font Info:    Redeclaring math accent \bar on input line 57.
+LaTeX Font Info:    Redeclaring math accent \breve on input line 57.
+LaTeX Font Info:    Redeclaring math accent \check on input line 57.
+LaTeX Font Info:    Redeclaring math accent \hat on input line 57.
+LaTeX Font Info:    Redeclaring math accent \dot on input line 57.
+LaTeX Font Info:    Redeclaring math accent \mathring on input line 57.
+LaTeX Font Info:    Redeclaring math symbol \Gamma on input line 57.
+LaTeX Font Info:    Redeclaring math symbol \Delta on input line 57.
+LaTeX Font Info:    Redeclaring math symbol \Theta on input line 57.
+LaTeX Font Info:    Redeclaring math symbol \Lambda on input line 57.
+LaTeX Font Info:    Redeclaring math symbol \Xi on input line 57.
+LaTeX Font Info:    Redeclaring math symbol \Pi on input line 57.
+LaTeX Font Info:    Redeclaring math symbol \Sigma on input line 57.
+LaTeX Font Info:    Redeclaring math symbol \Upsilon on input line 57.
+LaTeX Font Info:    Redeclaring math symbol \Phi on input line 57.
+LaTeX Font Info:    Redeclaring math symbol \Psi on input line 57.
+LaTeX Font Info:    Redeclaring math symbol \Omega on input line 57.
+LaTeX Font Info:    Redeclaring math symbol \mathdollar on input line 57.
+LaTeX Font Info:    Redeclaring symbol font `operators' on input line 57.
 LaTeX Font Info:    Encoding `OT1' has changed to `TU' for symbol font
-(Font)              `operators' in the math version `normal' on input line 56.
+(Font)              `operators' in the math version `normal' on input line 57.
 LaTeX Font Info:    Overwriting symbol font `operators' in version `normal'
 (Font)                  OT1/cmr/m/n --> TU/TimesNewRoman(0)/m/n on input line 5
-6.
+7.
 LaTeX Font Info:    Encoding `OT1' has changed to `TU' for symbol font
-(Font)              `operators' in the math version `bold' on input line 56.
+(Font)              `operators' in the math version `bold' on input line 57.
 LaTeX Font Info:    Overwriting symbol font `operators' in version `bold'
 (Font)                  OT1/cmr/bx/n --> TU/TimesNewRoman(0)/m/n on input line 
-56.
+57.
 LaTeX Font Info:    Overwriting symbol font `operators' in version `normal'
 (Font)                  TU/TimesNewRoman(0)/m/n --> TU/TimesNewRoman(0)/m/n on 
-input line 56.
+input line 57.
 LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `normal'
 (Font)                  OT1/cmr/m/it --> TU/TimesNewRoman(0)/m/it on input line
- 56.
+ 57.
 LaTeX Font Info:    Overwriting math alphabet `\mathbf' in version `normal'
 (Font)                  OT1/cmr/bx/n --> TU/TimesNewRoman(0)/b/n on input line 
-56.
+57.
 LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `normal'
-(Font)                  OT1/cmss/m/n --> TU/lmss/m/n on input line 56.
+(Font)                  OT1/cmss/m/n --> TU/lmss/m/n on input line 57.
 LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `normal'
-(Font)          
+(Font)                  OT1/cmtt/m/n --> TU/CourierNew(1)/m/n on input line 57.
+
+LaTeX Font Info:    Overwriting symbol font `operators' in version `bold'
+(Font)                  TU/TimesNewRoman(0)/m/n --> TU/TimesNewRoman(0)/b/n on 
+input line 57.
+LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `bold'
+(Font)                  OT1/cmr/bx/it --> TU/TimesNewRoman(0)/b/it on input lin
+e 57.
+LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `bold'
+(Font)                  OT1/cmss/bx/n --> TU/lmss/b/n on input line 57.
+LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `bold'
+(Font)                  OT1/cmtt/m/n --> TU/CourierNew(1)/b/n on input line 57.
+
+
+*geometry* driver: auto-detecting
+*geometry* detected driver: xetex
+*geometry* verbose mode - [ preamble ] result:
+* driver: xetex
+* paper: a4paper
+* layout: <same size as paper>
+* layoutoffset:(h,v)=(0.0pt,0.0pt)
+* modes: 
+* h-part:(L,W,R)=(71.13188pt, 455.24411pt, 71.13188pt)
+* v-part:(T,H,B)=(71.13188pt, 702.78308pt, 71.13188pt)
+* \paperwidth=597.50787pt
+* \paperheight=845.04684pt
+* \textwidth=455.24411pt
+* \textheight=702.78308pt
+* \oddsidemargin=-1.1381pt
+* \evensidemargin=-1.1381pt
+* \topmargin=-38.1381pt
+* \headheight=12.0pt
+* \headsep=25.0pt
+* \topskip=11.0pt
+* \footskip=30.0pt
+* \marginparwidth=50.0pt
+* \marginparsep=10.0pt
+* \columnsep=10.0pt
+* \skip\footins=10.0pt plus 4.0pt minus 2.0pt
+* \hoffset=0.0pt
+* \voffset=0.0pt
+* \mag=1000
+* \@twocolumnfalse
+* \@twosidefalse
+* \@mparswitchfalse
+* \@reversemarginfalse
+* (1in=72.27pt=25.4mm, 1cm=28.453pt)
+
+File: ./images/UNIPI.png Graphic file (type bmp)
+<./images/UNIPI.png>
+LaTeX Font Info:    Trying to load font information for U+msa on input line 60.
+
+(C:\Users\fdlmo\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\umsa.fd
+File: umsa.fd 2013/01/14 v3.01 AMS symbols A
+)
+LaTeX Font Info:    Trying to load font information for U+msb on input line 60.
+
+
+(C:\Users\fdlmo\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\umsb.fd
+File: umsb.fd 2013/01/14 v3.01 AMS symbols B
+)
+[1
+
+]
+Overfull \hbox (7.1996pt too wide) in paragraph at lines 65--74
+\TU/TimesNewRoman(0)/m/n/10 We first estimated class-specific means and covaria
+nces using Maximum Likelihood Estimation (MLE),
+ []
+
+[2] (report.toc)
+\tf@toc=\write6
+\openout6 = `report.toc'.
+
+ [3] [4]
+Underfull \hbox (badness 10000) in paragraph at lines 131--132
+
+ []
+
+
+Overfull \hbox (58.90485pt too wide) in paragraph at lines 197--198
+ [][] 
+ []
+
+[5] [6]
+File: ./images/Q1_diagrams/q1_hist_hour_float.png Graphic file (type bmp)
+<./images/Q1_diagrams/q1_hist_hour_float.png>
+File: ./images/Q1_diagrams/q1_hist_victim_age.png Graphic file (type bmp)
+<./images/Q1_diagrams/q1_hist_victim_age.png>
+File: ./images/Q1_diagrams/q1_hist_latitude.png Graphic file (type bmp)
+<./images/Q1_diagrams/q1_hist_latitude.png>
+File: ./images/Q1_diagrams/q1_hist_longitude.png Graphic file (type bmp)
+<./images/Q1_diagrams/q1_hist_longitude.png>
+File: ./images/Q1_diagrams/q1_hour_float_single_vs_gmm.png Graphic file (type b
+mp)
+<./images/Q1_diagrams/q1_hour_float_single_vs_gmm.png>
+ [7]
+Overfull \hbox (29.14203pt too wide) in paragraph at lines 281--283
+[]\TU/TimesNewRoman(0)/m/n/10.95 Also, we provide you with the additional two-d
+imensional plot involving \TU/CourierNew(1)/m/n/10.95 hour_float \TU/TimesNewRo
+man(0)/m/n/10.95 and \TU/CourierNew(1)/m/n/10.95 longtitude\TU/TimesNewRoman(0)
+/m/n/10.95 .
+ []
+
+File: ./images/Q1_diagrams/q1_scatter_hour_vs_longitude.png Graphic file (type 
+bmp)
+<./images/Q1_diagrams/q1_scatter_hour_vs_longitude.png>
+
+Underfull \hbox (badness 10000) in paragraph at lines 302--305
+
+ []
+
+[8]
+Underfull \hbox (badness 10000) in paragraph at lines 321--322
+
+ []
+
+\pydata@fh@0=\write7
+\openout7 = `_E98D2F001DA5678B39482EFBDF5770DC.data.minted'.
+
+runsystem(latexminted config  --timestamp 20260220123500 E98D2F001DA5678B39482E
+FBDF5770DC)...executed.
+
+(_E98D2F001DA5678B39482EFBDF5770DC.config.minted)
+runsystem(latexminted cleanconfig  --timestamp 20260220123500 E98D2F001DA5678B3
+9482EFBDF5770DC)...executed.
+
+ (_minted/tango.style.minted)
+(_minted/2B3A5E0F247726DE10EA7E4A97595779.highlight.minted) [9]
+File: ./images/Q2_diagrams/Q2_diagrams_covariance/q2_covariance_k1.png Graphic 
+file (type bmp)
+<./images/Q2_diagrams/Q2_diagrams_covariance/q2_covariance_k1.png>
+File: ./images/Q2_diagrams/Q2_diagrams_ellipse/q2_ellipse_hour_float_longitude_
+k1.png Graphic file (type bmp)
+<./images/Q2_diagrams/Q2_diagrams_ellipse/q2_ellipse_hour_float_longitude_k1.pn
+g>
+File: ./images/Q2_diagrams/Q2_diagrams_covariance/q2_covariance_k2.png Graphic 
+file (type bmp)
+<./images/Q2_diagrams/Q2_diagrams_covariance/q2_covariance_k2.png>
+File: ./images/Q2_diagrams/Q2_diagrams_ellipse/q2_ellipse_hour_float_longitude_
+k2.png Graphic file (type bmp)
+<./images/Q2_diagrams/Q2_diagrams_ellipse/q2_ellipse_hour_float_longitude_k2.pn
+g>
+ [10]
+File: ./images/Q2_diagrams/Q2_diagrams_covariance/q2_covariance_k3.png Graphic 
+file (type bmp)
+<./images/Q2_diagrams/Q2_diagrams_covariance/q2_covariance_k3.png>
+File: ./images/Q2_diagrams/Q2_diagrams_ellipse/q2_ellipse_hour_float_longitude_
+k3.png Graphic file (type bmp)
+<./images/Q2_diagrams/Q2_diagrams_ellipse/q2_ellipse_hour_float_longitude_k3.pn
+g>
+File: ./images/Q2_diagrams/Q2_diagrams_covariance/q2_covariance_k4.png Graphic 
+file (type bmp)
+<./images/Q2_diagrams/Q2_diagrams_covariance/q2_covariance_k4.png>
+File: ./images/Q2_diagrams/Q2_diagrams_ellipse/q2_ellipse_hour_float_longitude_
+k4.png Graphic file (type bmp)
+<./images/Q2_diagrams/Q2_diagrams_ellipse/q2_ellipse_hour_float_longitude_k4.pn
+g>
+ [11]
+File: ./images/Q2_diagrams/Q2_diagrams_covariance/q2_covariance_k5.png Graphic 
+file (type bmp)
+<./images/Q2_diagrams/Q2_diagrams_covariance/q2_covariance_k5.png>
+File: ./images/Q2_diagrams/Q2_diagrams_ellipse/q2_ellipse_hour_float_longitude_
+k5.png Graphic file (type bmp)
+<./images/Q2_diagrams/Q2_diagrams_ellipse/q2_ellipse_hour_float_longitude_k5.pn
+g>
+File: ./images/Q2_diagrams/Q2_diagrams_covariance/q2_covariance_k6.png Graphic 
+file (type bmp)
+<./images/Q2_diagrams/Q2_diagrams_covariance/q2_covariance_k6.png>
+File: ./images/Q2_diagrams/Q2_diagrams_ellipse/q2_ellipse_hour_float_longitude_
+k6.png Graphic file (type bmp)
+<./images/Q2_diagrams/Q2_diagrams_ellipse/q2_ellipse_hour_float_longitude_k6.pn
+g>
+
+[12]
+File: ./images/Q2_diagrams/Q2_diagrams_covariance/q2_covariance_k7.png Graphic 
+file (type bmp)
+<./images/Q2_diagrams/Q2_diagrams_covariance/q2_covariance_k7.png>
+File: ./images/Q2_diagrams/Q2_diagrams_ellipse/q2_ellipse_hour_float_longitude_
+k7.png Graphic file (type bmp)
+<./images/Q2_diagrams/Q2_diagrams_ellipse/q2_ellipse_hour_float_longitude_k7.pn
+g>
+File: ./images/Q2_diagrams/Q2_diagrams_covariance/q2_covariance_k8.png Graphic 
+file (type bmp)
+<./images/Q2_diagrams/Q2_diagrams_covariance/q2_covariance_k8.png>
+File: ./images/Q2_diagrams/Q2_diagrams_ellipse/q2_ellipse_hour_float_longitude_
+k8.png Graphic file (type bmp)
+<./images/Q2_diagrams/Q2_diagrams_ellipse/q2_ellipse_hour_float_longitude_k8.pn
+g>
+ [13] [14]
+Underfull \hbox (badness 10000) in paragraph at lines 497--499
+
+ []
+
+File: ./images/Q3_diagrams/q3_PCA_with_consistent_legend.png Graphic file (type
+ bmp)
+<./images/Q3_diagrams/q3_PCA_with_consistent_legend.png>
+[15] [16]
+Underfull \hbox (badness 10000) in paragraph at lines 548--552
+
+ []
+
+File: ./images/Q4_diagrams/q4_overlay_on_q3_pca.png Graphic file (type bmp)
+<./images/Q4_diagrams/q4_overlay_on_q3_pca.png>
+[17]
+Underfull \hbox (badness 10000) in paragraph at lines 570--574
+
+ []
+
+[18]
+File: ./images/Q5_diagrams/q5_decision_regions_pca2_rbf.png Graphic file (type 
+bmp)
+<./images/Q5_diagrams/q5_decision_regions_pca2_rbf.png>
+File: ./images/Q5_diagrams/q5_support_vectors_pca2_rbf.png Graphic file (type b
+mp)
+<./images/Q5_diagrams/q5_support_vectors_pca2_rbf.png>
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+[19] (_minted/58C8A1635DB0FF10A2A0BAD80034B157.highlight.minted) [20]
+Underfull \hbox (badness 10000) in paragraph at lines 657--659
+
+ []
+
+File: ./images/Q6_diagrams/q6_top5_features.png Graphic file (type bmp)
+<./images/Q6_diagrams/q6_top5_features.png>
+[21] (_minted/C5BEE5FABBF8FFBBC19109421926173B.highlight.minted) [22]
+File: ./images/Q7_diagrams/q7_scree_plot.png Graphic file (type bmp)
+<./images/Q7_diagrams/q7_scree_plot.png>
+File: ./images/Q7_diagrams/q7_pca2_svm_colours.png Graphic file (type bmp)
+<./images/Q7_diagrams/q7_pca2_svm_colours.png>
+ [23]
+(_minted/21F228E2BC413E11237FF425187FC683.highlight.minted) [24]
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `math shift' on input line 749.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `math shift' on input line 749.
+
+[25] [26]
+Underfull \hbox (badness 10000) in paragraph at lines 796--798
+
+ []
+
+[27]
+Underfull \hbox (badness 10000) in paragraph at lines 811--813
+
+ []
+
+(_minted/573EED3C0E2D29959CD7C0679D557B9E.highlight.minted) [28] [29]
+Underfull \hbox (badness 10000) in paragraph at lines 877--880
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 881--885
+
+ []
+
+File: ./images/LLM answers/1.png Graphic file (type bmp)
+<./images/LLM answers/1.png>
+File: ./images/LLM answers/2.png Graphic file (type bmp)
+<./images/LLM answers/2.png>
+
+Overfull \hbox (4.55623pt too wide) in paragraph at lines 899--900
+ [][] 
+ []
+
+File: ./images/LLM answers/3.png Graphic file (type bmp)
+<./images/LLM answers/3.png>
+File: ./images/LLM answers/4.png Graphic file (type bmp)
+<./images/LLM answers/4.png>
+File: ./images/LLM answers/5.png Graphic file (type bmp)
+<./images/LLM answers/5.png>
+File: ./images/LLM answers/6.png Graphic file (type bmp)
+<./images/LLM answers/6.png>
+[30]
+File: ./images/LLM answers/7.png Graphic file (type bmp)
+<./images/LLM answers/7.png>
+File: ./images/LLM answers/8.png Graphic file (type bmp)
+<./images/LLM answers/8.png>
+File: ./images/LLM answers/9.png Graphic file (type bmp)
+<./images/LLM answers/9.png>
+File: ./images/LLM answers/10.png Graphic file (type bmp)
+<./images/LLM answers/10.png>
+File: ./images/LLM answers/11.png Graphic file (type bmp)
+<./images/LLM answers/11.png>
+File: ./images/LLM answers/12.png Graphic file (type bmp)
+<./images/LLM answers/12.png>
+
+Overfull \hbox (3.34209pt too wide) in paragraph at lines 971--972
+ [][] 
+ []
+
+[31]
+File: ./images/LLM answers/13.png Graphic file (type bmp)
+<./images/LLM answers/13.png>
+File: ./images/LLM answers/14.png Graphic file (type bmp)
+<./images/LLM answers/14.png>
+File: ./images/LLM answers/15.png Graphic file (type bmp)
+<./images/LLM answers/15.png>
+File: ./images/LLM answers/16.png Graphic file (type bmp)
+<./images/LLM answers/16.png>
+File: ./images/LLM answers/17.png Graphic file (type bmp)
+<./images/LLM answers/17.png>
+File: ./images/LLM answers/18.png Graphic file (type bmp)
+<./images/LLM answers/18.png>
+File: ./images/LLM answers/19.png Graphic file (type bmp)
+<./images/LLM answers/19.png>
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+[32]
+File: ./images/LLM answers/20.png Graphic file (type bmp)
+<./images/LLM answers/20.png>
+File: ./images/LLM answers/21.png Graphic file (type bmp)
+<./images/LLM answers/21.png>
+ (_minted/3C530A63B2F408756E9069082615DF9D.highlight.minted [33])
+File: ./images/LLM answers/22.png Graphic file (type bmp)
+<./images/LLM answers/22.png>
+File: ./images/LLM answers/23.png Graphic file (type bmp)
+<./images/LLM answers/23.png>
+
+Overfull \hbox (3.30046pt too wide) in paragraph at lines 1111--1112
+ [][] 
+ []
+
+File: ./images/LLM answers/24.png Graphic file (type bmp)
+<./images/LLM answers/24.png>
+File: ./images/LLM answers/25.png Graphic file (type bmp)
+<./images/LLM answers/25.png>
+[34]
+File: ./images/LLM answers/26.png Graphic file (type bmp)
+<./images/LLM answers/26.png>
+File: ./images/LLM answers/27.png Graphic file (type bmp)
+<./images/LLM answers/27.png>
+ [35] (report.aux)
+ ***********
+LaTeX2e <2025-11-01>
+L3 programming layer <2025-11-06>
+ ***********
+Package rerunfilecheck Info: File `report.out' has not changed.
+(rerunfilecheck)             Checksum: 3993C43282360C1DDB547DAFFED1C96F;3305.
+ ) 
+Here is how much of TeX's memory you used:
+ 33402 strings out of 402987
+ 736067 string characters out of 5448525
+ 1347388 words of memory out of 5000000
+ 61552 multiletter control sequences out of 15000+600000
+ 636824 words of font info for 119 fonts, out of 8000000 for 9000
+ 1348 hyphenation exceptions out of 8191
+ 80i,11n,94p,588b,1155s stack positions out of 10000i,1000n,20000p,200000b,200000s
+
+Output written on report.pdf (35 pages).
