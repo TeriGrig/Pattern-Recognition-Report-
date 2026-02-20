@@ -33,6 +33,9 @@
 \usepackage{tikz}
 \usetikzlibrary{positioning, arrows.meta}
 
+\usepackage{dirtree}
+\usepackage{tcolorbox}
+
 \title{
   \includegraphics[width=0.25\textwidth]{./images/UNIPI.png}\\[3em]
   Who Is The Killer?\\[0.3em]
@@ -804,6 +807,55 @@ recognition problems.
 \newpage
 
 \section*{Code organisation}
+We implemented the code in a modular way, creating one script per question. Each script is responsible for producing the results and diagrams of its corresponding question.
+The diagrams from each question are stored in a separate folder. The dataset is also included in the main folder. Lastly, the prediction file \texttt{submission.csv} is also included in the main folder.\\
+
+\dirtree{%
+.1 pattern\_recognition.
+.2 Q1\_Diagrams.
+.2 Q2\_Diagrams.
+.2 Q3\_Diagrams.
+.2 Q4\_Diagrams.
+.2 Q5\_Diagrams.
+.2 Q6\_Diagrams.
+.2 Q7\_Diagrams.
+.2 Q8\_Diagrams.
+.2 crimes.csv.
+.2 q1.py.
+.2 q2.py.
+.2 q3.py.
+.2 q4.py.
+.2 q5.py.
+.2 q6.py.
+.2 q7.py.
+.2 q8.py.
+.2 submission.csv.
+}
+
+\begin{tcolorbox}[colback=gray!5!white,colframe=gray!75!black,title=Libraries and data load]
+\begin{minted}{python}
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+from scipy.stats import norm
+from sklearn.mixture import GaussianMixture
+
+# Φόρτωση & φιλτράρισμα
+csv_path = "crimes.csv"
+df = pd.read_csv(csv_path)
+
+# Κρατάμε μόνο TRAIN+VAL
+df = df[df["split"].isin(["TRAIN", "VAL"])].copy()
+
+# Τυπική επιβεβαίωση ότι έχουμε όλες τις απαιτούμενες στήλες
+required_cols = ["hour_float", "victim_age", "latitude", "longitude"]
+missing = [c for c in required_cols if c not in df.columns]
+assert not missing, f"Λείπουν στήλες: {missing}"
+\end{minted}
+\end{tcolorbox}
+
+
 
 Briefly describe your Python code structure (scripts, notebooks, helper
 modules) and how to reproduce:
