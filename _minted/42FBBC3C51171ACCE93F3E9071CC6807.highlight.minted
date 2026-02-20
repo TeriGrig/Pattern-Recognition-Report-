@@ -1,0 +1,30 @@
+\begin{MintedVerbatim}[commandchars=\\\{\}]
+\PYG{n}{Xtr\PYGZus{}t} \PYG{o}{=} \PYG{n}{torch}\PYG{o}{.}\PYG{n}{tensor}\PYG{p}{(}\PYG{n}{Xfull\PYGZus{}train}\PYG{p}{,} \PYG{n}{dtype}\PYG{o}{=}\PYG{n}{torch}\PYG{o}{.}\PYG{n}{float32}\PYG{p}{)}\PYG{o}{.}\PYG{n}{to}\PYG{p}{(}\PYG{n}{device}\PYG{p}{)}  \PYG{c+c1}{\PYGZsh{} (N, d\PYGZus{}full)}
+\PYG{n}{Xva\PYGZus{}t} \PYG{o}{=} \PYG{n}{torch}\PYG{o}{.}\PYG{n}{tensor}\PYG{p}{(}\PYG{n}{Xfull\PYGZus{}val}\PYG{p}{,}   \PYG{n}{dtype}\PYG{o}{=}\PYG{n}{torch}\PYG{o}{.}\PYG{n}{float32}\PYG{p}{)}\PYG{o}{.}\PYG{n}{to}\PYG{p}{(}\PYG{n}{device}\PYG{p}{)}
+\PYG{n}{ytr\PYGZus{}1h} \PYG{o}{=} \PYG{n}{torch}\PYG{o}{.}\PYG{n}{eye}\PYG{p}{(}\PYG{n}{S}\PYG{p}{,} \PYG{n}{dtype}\PYG{o}{=}\PYG{n}{torch}\PYG{o}{.}\PYG{n}{float32}\PYG{p}{)[}\PYG{n}{torch}\PYG{o}{.}\PYG{n}{tensor}\PYG{p}{(}\PYG{n}{ytrain\PYGZus{}idx}\PYG{p}{)]}\PYG{o}{.}\PYG{n}{to}\PYG{p}{(}\PYG{n}{device}\PYG{p}{)}
+
+\PYG{n}{d\PYGZus{}full} \PYG{o}{=} \PYG{n}{Xfull\PYGZus{}train}\PYG{o}{.}\PYG{n}{shape}\PYG{p}{[}\PYG{l+m+mi}{1}\PYG{p}{]}
+\PYG{n}{linear} \PYG{o}{=} \PYG{n}{nn}\PYG{o}{.}\PYG{n}{Linear}\PYG{p}{(}\PYG{n}{d\PYGZus{}full}\PYG{p}{,} \PYG{n}{S}\PYG{p}{)}\PYG{o}{.}\PYG{n}{to}\PYG{p}{(}\PYG{n}{device}\PYG{p}{)}
+\PYG{n}{criterion} \PYG{o}{=} \PYG{n}{nn}\PYG{o}{.}\PYG{n}{MSELoss}\PYG{p}{()}
+\PYG{n}{opt} \PYG{o}{=} \PYG{n}{optim}\PYG{o}{.}\PYG{n}{Adam}\PYG{p}{(}\PYG{n}{linear}\PYG{o}{.}\PYG{n}{parameters}\PYG{p}{(),} \PYG{n}{lr}\PYG{o}{=}\PYG{l+m+mf}{1e\PYGZhy{}3}\PYG{p}{)}
+
+\PYG{n}{linear}\PYG{o}{.}\PYG{n}{train}\PYG{p}{()}
+\PYG{k}{for} \PYG{n}{epoch} \PYG{o+ow}{in} \PYG{n+nb}{range}\PYG{p}{(}\PYG{l+m+mi}{1500}\PYG{p}{):}
+    \PYG{n}{opt}\PYG{o}{.}\PYG{n}{zero\PYGZus{}grad}\PYG{p}{()}
+    \PYG{n}{out} \PYG{o}{=} \PYG{n}{linear}\PYG{p}{(}\PYG{n}{Xtr\PYGZus{}t}\PYG{p}{)}             \PYG{c+c1}{\PYGZsh{} logits (S)}
+    \PYG{n}{loss} \PYG{o}{=} \PYG{n}{criterion}\PYG{p}{(}\PYG{n}{out}\PYG{p}{,} \PYG{n}{ytr\PYGZus{}1h}\PYG{p}{)}   \PYG{c+c1}{\PYGZsh{} SSE με one\PYGZhy{}hot}
+    \PYG{n}{loss}\PYG{o}{.}\PYG{n}{backward}\PYG{p}{()}
+    \PYG{n}{opt}\PYG{o}{.}\PYG{n}{step}\PYG{p}{()}
+    \PYG{k}{if} \PYG{n}{epoch} \PYG{o}{\PYGZpc{}} \PYG{l+m+mi}{300} \PYG{o}{==} \PYG{l+m+mi}{0}\PYG{p}{:}
+        \PYG{n+nb}{print}\PYG{p}{(}\PYG{l+s+sa}{f}\PYG{l+s+s2}{\PYGZdq{}[Q4] epoch }\PYG{l+s+si}{\PYGZob{}}\PYG{n}{epoch}\PYG{l+s+si}{\PYGZcb{}}\PYG{l+s+s2}{, loss=}\PYG{l+s+si}{\PYGZob{}}\PYG{n}{loss}\PYG{o}{.}\PYG{n}{item}\PYG{p}{()}\PYG{l+s+si}{:}\PYG{l+s+s2}{.4f}\PYG{l+s+si}{\PYGZcb{}}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{)}
+
+\PYG{n}{linear}\PYG{o}{.}\PYG{n}{eval}\PYG{p}{()}
+\PYG{k}{with} \PYG{n}{torch}\PYG{o}{.}\PYG{n}{no\PYGZus{}grad}\PYG{p}{():}
+    \PYG{n}{tr\PYGZus{}logits} \PYG{o}{=} \PYG{n}{linear}\PYG{p}{(}\PYG{n}{Xtr\PYGZus{}t}\PYG{p}{)}\PYG{o}{.}\PYG{n}{cpu}\PYG{p}{()}\PYG{o}{.}\PYG{n}{numpy}\PYG{p}{()}
+    \PYG{n}{va\PYGZus{}logits} \PYG{o}{=} \PYG{n}{linear}\PYG{p}{(}\PYG{n}{Xva\PYGZus{}t}\PYG{p}{)}\PYG{o}{.}\PYG{n}{cpu}\PYG{p}{()}\PYG{o}{.}\PYG{n}{numpy}\PYG{p}{()}
+\PYG{n}{tr\PYGZus{}pred\PYGZus{}idx} \PYG{o}{=} \PYG{n}{tr\PYGZus{}logits}\PYG{o}{.}\PYG{n}{argmax}\PYG{p}{(}\PYG{l+m+mi}{1}\PYG{p}{)}
+\PYG{n}{va\PYGZus{}pred\PYGZus{}idx} \PYG{o}{=} \PYG{n}{va\PYGZus{}logits}\PYG{o}{.}\PYG{n}{argmax}\PYG{p}{(}\PYG{l+m+mi}{1}\PYG{p}{)}
+\PYG{n+nb}{print}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}Q4 TRAIN acc:\PYGZdq{}}\PYG{p}{,} \PYG{n}{accuracy\PYGZus{}score}\PYG{p}{(}\PYG{n}{ytrain\PYGZus{}idx}\PYG{p}{,} \PYG{n}{tr\PYGZus{}pred\PYGZus{}idx}\PYG{p}{))}
+\PYG{n+nb}{print}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}Q4 VAL acc:\PYGZdq{}}\PYG{p}{,}   \PYG{n}{accuracy\PYGZus{}score}\PYG{p}{(}\PYG{n}{yval\PYGZus{}idx}\PYG{p}{,}   \PYG{n}{va\PYGZus{}pred\PYGZus{}idx}\PYG{p}{))}
+\PYG{n+nb}{print}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}Q4 VAL confusion:}\PYG{l+s+se}{\PYGZbs{}n}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{,} \PYG{n}{confusion\PYGZus{}matrix}\PYG{p}{(}\PYG{n}{yval\PYGZus{}idx}\PYG{p}{,} \PYG{n}{va\PYGZus{}pred\PYGZus{}idx}\PYG{p}{))}
+\end{MintedVerbatim}

@@ -351,7 +351,7 @@ def plot_hist_with_stats(series, title, bins=30, kde=False, xlim=None):
 \subsection*{Q2: Gaussian MLE per killer}
 \addcontentsline{toc}{subsection}{Q2: Gaussian MLE per killer}
 
-Bellow we present you  one covariance heatmap and one 2D projection with ellipses per killer, as requested.  
+Below we present you  one covariance heatmap and one 2D projection with ellipses per killer, as requested.  
 
 \begin{itemize}
   \item Killer 1: \\ 
@@ -494,9 +494,8 @@ Here is the requested confusion matrix on VAL.
   \end{tabular}
 \end{table}
 
-We can see that the matrix prodyced is mostly diagonal and the killers with the highest presence are the 
-killers 3, 6 and 7. \\
-
+We can see that the matrix produced is mostly diagonal and the killers with the highest presence are the 
+killers 3, 6 and 7, which will be explained due to the accuracy of Q8 in the end of the assignment.\\
 Below follows the two-dimensional projection, visualising the decision regions induced by the Bayes classifier, with 
 TRAIN points coloured by true killer. Each curved boundary seperates the feature regions of each killer.
 
@@ -514,7 +513,49 @@ TRAIN points coloured by true killer. Each curved boundary seperates the feature
 We implemented a multiclass Gaussian Bayes classifier using the parameters estimated in Q2. For each killer
 k, we modelled the continuous feature vector as a multivariate Gaussian distribution. For each incident x we 
 calculated the long-posterior probability. Lastly, we evaluated the classifier on the VAL split by calculating 
-the overall accuracy and of course prosuced the corresponding confusion matrix.
+the overall accuracy and of course prosuced the corresponding confusion matrix, as shown in thee code below.
+
+\begin{minted}[
+    linenos,                
+    breaklines=true,        
+    breakanywhere=true,     
+    breakautoindent=true,   
+    bgcolor= gray!10,       
+    fontsize=\small
+]{python}
+def predict_proba(x):
+    # returns vector of posterior probabilities for one x
+    log_scores = []
+    for k in killers:
+        lg = np.log(pi[k]) + log_gaussian(
+            x,
+            mu_dict[k],
+            invcov[k],
+            logdet[k]
+        )
+        log_scores.append(lg)
+    log_scores = np.array(log_scores)
+    # softmax
+    exp_scores = np.exp(log_scores - np.max(log_scores))
+    return exp_scores / exp_scores.sum()
+
+def predict_class(x):
+    pp = predict_proba(x)
+    return killers[np.argmax(pp)]
+
+# Predict on TRAIN
+ytrain_pred = np.array([predict_class(x) for x in Xtrain])
+train_acc = accuracy_score(ytrain, ytrain_pred)
+
+# Predict on VAL
+yval_pred = np.array([predict_class(x) for x in Xval])
+val_acc = accuracy_score(yval, yval_pred)
+
+print("TRAIN accuracy:", train_acc)
+print("VAL accuracy:", val_acc)
+print("VAL confusion matrix:")
+print(confusion_matrix(yval, yval_pred)) 
+\end{minted} 
 
 % --------------------------------------------------------------
 \newpage
@@ -572,6 +613,44 @@ features (hour\_float, latitude, longitude, victim\_age, temp\_c, humidity, dist
 (weapon\_code, scene\_type, weather, vic\_gender). We implemented the linear classifier given. We trained the model on the TRAIN split using MSE 
 (Mean Squared Error loss). Lastly, we valuate the accuracy and the confusion matrix and produce the 2D PCA overlaying the one from Q3.\\
 
+\begin{minted}[
+    linenos,                
+    breaklines=true,        
+    breakanywhere=true,     
+    breakautoindent=true,   
+    bgcolor= gray!10,       
+    fontsize=\small
+]{python}
+Xtr_t = torch.tensor(Xfull_train, dtype=torch.float32).to(device)  # (N, d_full)
+Xva_t = torch.tensor(Xfull_val,   dtype=torch.float32).to(device)
+ytr_1h = torch.eye(S, dtype=torch.float32)[torch.tensor(ytrain_idx)].to(device)
+
+d_full = Xfull_train.shape[1]
+linear = nn.Linear(d_full, S).to(device)
+criterion = nn.MSELoss()
+opt = optim.Adam(linear.parameters(), lr=1e-3)
+
+linear.train()
+for epoch in range(1500):
+    opt.zero_grad()
+    out = linear(Xtr_t)             # logits (S)
+    loss = criterion(out, ytr_1h)   # SSE με one-hot
+    loss.backward()
+    opt.step()
+    if epoch % 300 == 0:
+        print(f"[Q4] epoch {epoch}, loss={loss.item():.4f}")
+
+linear.eval()
+with torch.no_grad():
+    tr_logits = linear(Xtr_t).cpu().numpy()
+    va_logits = linear(Xva_t).cpu().numpy()
+tr_pred_idx = tr_logits.argmax(1)
+va_pred_idx = va_logits.argmax(1)
+print("Q4 TRAIN acc:", accuracy_score(ytrain_idx, tr_pred_idx))
+print("Q4 VAL acc:",   accuracy_score(yval_idx,   va_pred_idx))
+print("Q4 VAL confusion:\n", confusion_matrix(yval_idx, va_pred_idx))
+\end{minted}
+
 \textbf{Note to teacher:} As you may have noticed if you have run our code, on the terminal also appear the Q3's results. Everything on terminal is exclusively 
 for our convenience in order to make sure all things run smoothly and are executed correctly. It should not consern you as we have provided you with 
 Q4's results in the previous section.
@@ -582,7 +661,7 @@ Q4's results in the previous section.
 \subsection*{Q5: Support Vector Machine}
 \addcontentsline{toc}{subsection}{Q5: Support Vector Machine}
 
-The VAL accuracy for the RBF method is 94\%. The confusion matrix is the following. Once again it slightly resembles a diagonal matrix which means we are getting closer.
+The VAL accuracy for the RBF method is 94\%. The confusion matrix is the following. Once again it slightly resembles a diagonal matrix which means we are getting closer.\\
 
 \begin{table}[h]
   \centering
@@ -603,24 +682,28 @@ The VAL accuracy for the RBF method is 94\%. The confusion matrix is the followi
   \end{tabular}
 \end{table}
 
-In the images that follow we can see the decision regions as well as the support vectors.
+In the images that follow we can see the decision regions as well as the support vectors.\\
 
 \begin{figure}[h]
   \centering
   \includegraphics[width=0.66\textwidth]{./images/Q5_diagrams/q5_decision_regions_pca2_rbf.png}
 \end{figure}
 
+\newpage
+
 \begin{figure}[h]
   \centering
   \includegraphics[width=0.66\textwidth]{./images/Q5_diagrams/q5_support_vectors_pca2_rbf.png}
 \end{figure}
+
+Highlighted in red are distributed the incidents that determine the characteristics of the killers' profiles.
 
 \newpage
 
 \subsubsection*{Explanation}
 \addcontentsline{toc}{subsubsection}{Explanation}
 
-Our SVM setup is formed by choosing either RBF or Polynomial kernel. We prefered RBF as it allows non-linear decision boundaries. The code is modified for either one.
+Our SVM setup is formed by choosing either RBF or Polynomial kernel. We prefered RBF as it allows non-linear decision boundaries. The code is modified for either one.\\
 
 \begin{minted}[
     linenos,                
@@ -698,7 +781,43 @@ mlp = MLPClassifier(
 )
 \end{minted} 
 
-We continued by once again training the model on TRAIN, calculated VAL accuraciy etc. Lastly, feature importance was estimated using permutation importance.
+We continued by once again training the model on TRAIN, calculated VAL accuracy etc. Lastly, feature importance was estimated using permutation importance.
+
+\begin{minted}[
+    linenos,                
+    breaklines=true,        
+    breakanywhere=true,     
+    breakautoindent=true,   
+    bgcolor= gray!10,       
+    fontsize=\small
+]{python}
+Z_val = model.named_steps["pre"].transform(X_val)
+
+importances = []
+rng = np.random.default_rng(0)
+
+for j in range(Z_val.shape[1]):
+    Zp = Z_val.copy()
+    Zp[:, j] = rng.permutation(Zp[:, j])  # permute one feature
+    pred = model.named_steps["mlp"].predict(Zp)
+    Aj = accuracy_score(y_val, pred)
+    importances.append((all_feat[j], A_base - Aj))
+
+# Sort by importance
+importances.sort(key=lambda x: x[1], reverse=True)
+top5 = importances[:5]
+
+print("\nTop 5 Most Important Features:")
+for name, imp in top5:
+    print(f"{name:35s} ΔA = {imp}")
+\end{minted} 
+
+The code presented computes the permutation feature importance by measuring how much the model's accuracy decreases when each feature is randomly permuted. 
+First, the validation data are transformed using the preprocessing step of the pipeline so that the MLP receives inputs in the same format as during training. 
+Then, for each feature, a copy of the transformed validation set is created and the values of that feature are randomly shuffled, breaking its relationship with 
+the target variable. The modified dataset is passed to the trained MLP to obtain new predictions, and the resulting accuracy is compared with the original validation 
+accuracy. The drop in accuracy quantifies the importance of that feature: a larger decrease indicates that the feature is more critical for the model’s performance. 
+Finally, all features are sorted by their impact, and the five most important ones are printed.
 
 % --------------------------------------------------------------
 \newpage
@@ -706,7 +825,7 @@ We continued by once again training the model on TRAIN, calculated VAL accuraciy
 \subsection*{Q7: Principal Component Analysis}
 \addcontentsline{toc}{subsection}{Q7: Principal Component Analysis}
 
-Bellow we provide you with a plot of eigenvalues versus component index and a PC1--PC2 scatter plot coloured by predicted killer labels, as requested.
+Below we provide you with a plot of eigenvalues versus component index and a PC1--PC2 scatter plot coloured by predicted killer labels, as requested.
 
 \begin{figure}[h]
   \centering
@@ -748,19 +867,79 @@ components. However, for visualization purposes only we chose to set the paramet
 \subsection*{Q8: $k$-means in PCA space}
 \addcontentsline{toc}{subsection}{Q8: $k$-means in PCA space}
 
+Below, we provide you with the plot with our final predicted killer labels Ci.
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=0.9\textwidth]{./images/Q8_diagrams/q8_clusters_plot.png}
+\end{figure}
+
+As you can see we came to the conclusion that there are 4 predicted killers in k-means clustering. These are killers 2, 3, 6 and 7. We would like to remind 
+you that in Q3 we had predicted killers 3, 6 and 7. This means that even though the VAL accuracy of k-means is equal to 81\%, it is still very close to the 
+Gaussian Bayes and SVM models which have better accuracies.   
+
 \newpage
 
 \subsubsection*{Explanation}
 \addcontentsline{toc}{subsubsection}{Explanation}
 
 To start with, the data was once again preprocessed, fitted on TRAIN and applied on VAL and TEST. The PCA was applied on TRAIN only. The number of 
-components was set to 5 (based on Q7's results). So, we ran k-means with k equal to S, where equals to the nnumber of killers(in our case 8). K-means
+components was set to 2 (based on Q7's results). So, we ran k-means with k equal to S, where equals to the nnumber of killers(in our case 8). K-means
 is unsupervised, so the clusters do not correspond directly to the killer IDs. In order to convert clusters into class labels, we used majority voting 
 on the TRAIN set. For each cluster, we identified all TRAIN samples assigned to that cluster, examined their true killer labels, and assigned each cluster 
 the label of the most frequent killer in that cluster. For evaluation on VAL, samples were assigned to clusters using the fitted k-means model, mapped to 
 killer IDs using the majority-vote mapping, and accuracy was of course calculated. Finally, for the TEST set, we produced a probability distribution over 
 the clusters by calculating the Euclidean distance from each sample to all centroids. Distances were converted to scores using score = −distance, and a 
-softmax function was applied to obtain normalized probabilities.
+softmax approach was applied to obtain normalized probabilities.\\
+
+\begin{minted}[
+    linenos,                
+    breaklines=true,        
+    breakanywhere=true,     
+    breakautoindent=true,   
+    bgcolor= gray!10,       
+    fontsize=\small
+]{python}
+test_clusters = kmeans.predict(Z_test_m)
+test_pred = np.array([cluster_to_killer[c] for c in test_clusters])
+
+distances = kmeans.transform(Z_test_m)
+
+# 2. Μετατροπή αποστάσεων σε πιθανότητες (Softmax approach)
+# Χρησιμοποιούμε exp(-dist) ώστε οι μικρές αποστάσεις να δίνουν μεγάλες πιθανότητες
+inv_distances = np.exp(-distances)
+# Κανονικοποίηση ώστε το άθροισμα κάθε γραμμής να είναι 1 [cite: 91]
+probs_clusters = inv_distances / np.sum(inv_distances, axis=1, keepdims=True)
+
+# 3. Δημιουργία DataFrame
+submission = pd.DataFrame({"incident_id": test["incident_id"], "predicted_killer": test_pred})
+
+# 4. Υπολογισμός πιθανοτήτων για κάθε killer_id (1 έως S)
+for k in range(1, S + 1):
+    # Βρίσκουμε ποια clusters (q) αντιστοιχούν στον δολοφόνο k [cite: 218]
+    matching_clusters = [q for q, killer in cluster_to_killer.items() if killer == k]
+
+    if matching_clusters:
+        # Αθροίζουμε τις πιθανότητες των clusters που ανήκουν στον δολοφόνο k
+        submission[f"p_killer_{k}"] = probs_clusters[:, matching_clusters].sum(axis=1)
+    else:
+        # Αν ο δολοφόνος k δεν κέρδισε κανένα cluster, του δίνουμε μια πολύ μικρή
+        # βασική πιθανότητα (π.χ. από το πλησιέστερο cluster) για να μην είναι 0
+        submission[f"p_killer_{k}"] = 1e-5
+
+    # Επανεξισορρόπηση (Normalization) για να αθροίζουν ακριβώς στο 1 [cite: 91]
+prob_cols = [f"p_killer_{k}" for k in range(1, S + 1)]
+submission[prob_cols] = submission[prob_cols].div(submission[prob_cols].sum(axis=1), axis=0)
+\end{minted} 
+
+\newpage
+
+This code for the TEST set predicts clusters and labels similarly, then derives class probabilities by first obtaining distances of each example to all
+cluster centroids (kmeans.transform). Distances are converted to soft probabilities with a softmax over negative distances (exp(-distance)), so nearer 
+centroids receive higher probability mass. These cluster‑level probabilities are aggregated to class‑level probabilities by summing over all clusters 
+mapped to the same killer ID. The classes with no winning cluster get a tiny fallback probability to avoid exact zeros(1e-5). Finally, the per‑row 
+probabilities are renormalized to sum to 1, and a submission.csv is created containing the incident\_id, the predicted label, and the calibrated 
+probabilities p\_killer\_1 … p\_killer\_S.
 
 % --------------------------------------------------------------
 \newpage
@@ -780,7 +959,7 @@ Let's summarise the VAL accuracies of these methods up until now:
     Linear classifier      & 0.782 \\
     SVM (RBF kernel)       & 0.948 \\
     MLP                    & 0.944 \\
-    PCA (+ k-means)        & xxxxx \\
+    PCA + k-means          & 0.813 \\
     \bottomrule
   \end{tabular}
   \\[1em]
@@ -797,12 +976,13 @@ So, in ascending order of performance we have:
   \\[0.2em]
 \end{enumerate}
 
-We have concluded that the more helpful features in order to model behavior where geographic features (latitude and longtitude), victim-related information 
+We have concluded that the more helpful features in order to model behavior were geographic features (latitude and longtitude), victim-related information 
 (their age and gender), information about the place where the crime was commited and the prevailing weather conditions (weather, temperature and scene type) 
-and of course the weapon type (not necessarily in that order). Potentially, more complex generative models could be included and explored. 
-Additionally, there are other factors to could be analyzed and taken into consideration, such as crime frequency patterns, killer's motive or mental health disorders. 
-Overall, the current study highlights the importance of combining proper preprocessing, nonlinear modeling and feature analysis when trying to solve real-world pattern 
-recognition problems.
+and of course the weapon type (not necessarily in that order). With the use of all presented diagrams, confusion matrixes and the final file submision.csv, 
+we highlighted the 4 killers (2, 3, 6 and 7) as the killers who are most likely to have commited the most crimes, especially in TEST. Potentially, more complex generative 
+models could be included and explored. Additionally, there are other factors to could be analyzed and taken into consideration, such as crime frequency patterns, killer's 
+motive or mental health disorders. Overall, the current study highlights the importance of combining proper preprocessing, nonlinear modeling and feature analysis when trying 
+to solve real-world pattern recognition problems.
 
 % --------------------------------------------------------------
 \newpage

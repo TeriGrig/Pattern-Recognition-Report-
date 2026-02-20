@@ -12,12 +12,12 @@
 \contentsline {subsection}{Q4: Linear classifier}{17}{section*.24}%
 \contentsline {subsubsection}{Explanation}{18}{section*.27}%
 \contentsline {subsection}{Q5: Support Vector Machine}{19}{section*.28}%
-\contentsline {subsubsection}{Explanation}{20}{section*.32}%
-\contentsline {subsection}{Q6: Multi-Layer Perceptron}{21}{section*.33}%
-\contentsline {subsubsection}{Explanation}{22}{section*.35}%
-\contentsline {subsection}{Q7: Principal Component Analysis}{23}{section*.36}%
-\contentsline {subsubsection}{Explanation}{24}{section*.39}%
-\contentsline {subsection}{Q8: $k$-means in PCA space}{25}{section*.40}%
-\contentsline {subsubsection}{Explanation}{26}{section*.41}%
-\contentsline {section}{\numberline {4}Discussion and conclusions}{27}{section.4}%
-\contentsline {section}{\numberline {5}LLM prompts and responses}{30}{section.5}%
+\contentsline {subsubsection}{Explanation}{21}{section*.32}%
+\contentsline {subsection}{Q6: Multi-Layer Perceptron}{22}{section*.33}%
+\contentsline {subsubsection}{Explanation}{23}{section*.35}%
+\contentsline {subsection}{Q7: Principal Component Analysis}{24}{section*.36}%
+\contentsline {subsubsection}{Explanation}{25}{section*.39}%
+\contentsline {subsection}{Q8: $k$-means in PCA space}{26}{section*.40}%
+\contentsline {subsubsection}{Explanation}{27}{section*.42}%
+\contentsline {section}{\numberline {4}Discussion and conclusions}{29}{section.4}%
+\contentsline {section}{\numberline {5}LLM prompts and responses}{32}{section.5}%

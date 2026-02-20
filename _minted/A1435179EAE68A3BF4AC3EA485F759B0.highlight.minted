@@ -1,0 +1,32 @@
+\begin{MintedVerbatim}[commandchars=\\\{\}]
+\PYG{n}{test\PYGZus{}clusters} \PYG{o}{=} \PYG{n}{kmeans}\PYG{o}{.}\PYG{n}{predict}\PYG{p}{(}\PYG{n}{Z\PYGZus{}test\PYGZus{}m}\PYG{p}{)}
+\PYG{n}{test\PYGZus{}pred} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{array}\PYG{p}{([}\PYG{n}{cluster\PYGZus{}to\PYGZus{}killer}\PYG{p}{[}\PYG{n}{c}\PYG{p}{]} \PYG{k}{for} \PYG{n}{c} \PYG{o+ow}{in} \PYG{n}{test\PYGZus{}clusters}\PYG{p}{])}
+
+\PYG{n}{distances} \PYG{o}{=} \PYG{n}{kmeans}\PYG{o}{.}\PYG{n}{transform}\PYG{p}{(}\PYG{n}{Z\PYGZus{}test\PYGZus{}m}\PYG{p}{)}
+
+\PYG{c+c1}{\PYGZsh{} 2. Μετατροπή αποστάσεων σε πιθανότητες (Softmax approach)}
+\PYG{c+c1}{\PYGZsh{} Χρησιμοποιούμε exp(\PYGZhy{}dist) ώστε οι μικρές αποστάσεις να δίνουν μεγάλες πιθανότητες}
+\PYG{n}{inv\PYGZus{}distances} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{exp}\PYG{p}{(}\PYG{o}{\PYGZhy{}}\PYG{n}{distances}\PYG{p}{)}
+\PYG{c+c1}{\PYGZsh{} Κανονικοποίηση ώστε το άθροισμα κάθε γραμμής να είναι 1 [cite: 91]}
+\PYG{n}{probs\PYGZus{}clusters} \PYG{o}{=} \PYG{n}{inv\PYGZus{}distances} \PYG{o}{/} \PYG{n}{np}\PYG{o}{.}\PYG{n}{sum}\PYG{p}{(}\PYG{n}{inv\PYGZus{}distances}\PYG{p}{,} \PYG{n}{axis}\PYG{o}{=}\PYG{l+m+mi}{1}\PYG{p}{,} \PYG{n}{keepdims}\PYG{o}{=}\PYG{k+kc}{True}\PYG{p}{)}
+
+\PYG{c+c1}{\PYGZsh{} 3. Δημιουργία DataFrame}
+\PYG{n}{submission} \PYG{o}{=} \PYG{n}{pd}\PYG{o}{.}\PYG{n}{DataFrame}\PYG{p}{(\PYGZob{}}\PYG{l+s+s2}{\PYGZdq{}incident\PYGZus{}id\PYGZdq{}}\PYG{p}{:} \PYG{n}{test}\PYG{p}{[}\PYG{l+s+s2}{\PYGZdq{}incident\PYGZus{}id\PYGZdq{}}\PYG{p}{],} \PYG{l+s+s2}{\PYGZdq{}predicted\PYGZus{}killer\PYGZdq{}}\PYG{p}{:} \PYG{n}{test\PYGZus{}pred}\PYG{p}{\PYGZcb{})}
+
+\PYG{c+c1}{\PYGZsh{} 4. Υπολογισμός πιθανοτήτων για κάθε killer\PYGZus{}id (1 έως S)}
+\PYG{k}{for} \PYG{n}{k} \PYG{o+ow}{in} \PYG{n+nb}{range}\PYG{p}{(}\PYG{l+m+mi}{1}\PYG{p}{,} \PYG{n}{S} \PYG{o}{+} \PYG{l+m+mi}{1}\PYG{p}{):}
+    \PYG{c+c1}{\PYGZsh{} Βρίσκουμε ποια clusters (q) αντιστοιχούν στον δολοφόνο k [cite: 218]}
+    \PYG{n}{matching\PYGZus{}clusters} \PYG{o}{=} \PYG{p}{[}\PYG{n}{q} \PYG{k}{for} \PYG{n}{q}\PYG{p}{,} \PYG{n}{killer} \PYG{o+ow}{in} \PYG{n}{cluster\PYGZus{}to\PYGZus{}killer}\PYG{o}{.}\PYG{n}{items}\PYG{p}{()} \PYG{k}{if} \PYG{n}{killer} \PYG{o}{==} \PYG{n}{k}\PYG{p}{]}
+
+    \PYG{k}{if} \PYG{n}{matching\PYGZus{}clusters}\PYG{p}{:}
+        \PYG{c+c1}{\PYGZsh{} Αθροίζουμε τις πιθανότητες των clusters που ανήκουν στον δολοφόνο k}
+        \PYG{n}{submission}\PYG{p}{[}\PYG{l+s+sa}{f}\PYG{l+s+s2}{\PYGZdq{}p\PYGZus{}killer\PYGZus{}}\PYG{l+s+si}{\PYGZob{}}\PYG{n}{k}\PYG{l+s+si}{\PYGZcb{}}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{]} \PYG{o}{=} \PYG{n}{probs\PYGZus{}clusters}\PYG{p}{[:,} \PYG{n}{matching\PYGZus{}clusters}\PYG{p}{]}\PYG{o}{.}\PYG{n}{sum}\PYG{p}{(}\PYG{n}{axis}\PYG{o}{=}\PYG{l+m+mi}{1}\PYG{p}{)}
+    \PYG{k}{else}\PYG{p}{:}
+        \PYG{c+c1}{\PYGZsh{} Αν ο δολοφόνος k δεν κέρδισε κανένα cluster, του δίνουμε μια πολύ μικρή}
+        \PYG{c+c1}{\PYGZsh{} βασική πιθανότητα (π.χ. από το πλησιέστερο cluster) για να μην είναι 0}
+        \PYG{n}{submission}\PYG{p}{[}\PYG{l+s+sa}{f}\PYG{l+s+s2}{\PYGZdq{}p\PYGZus{}killer\PYGZus{}}\PYG{l+s+si}{\PYGZob{}}\PYG{n}{k}\PYG{l+s+si}{\PYGZcb{}}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{]} \PYG{o}{=} \PYG{l+m+mf}{1e\PYGZhy{}5}
+
+    \PYG{c+c1}{\PYGZsh{} Επανεξισορρόπηση (Normalization) για να αθροίζουν ακριβώς στο 1 [cite: 91]}
+\PYG{n}{prob\PYGZus{}cols} \PYG{o}{=} \PYG{p}{[}\PYG{l+s+sa}{f}\PYG{l+s+s2}{\PYGZdq{}p\PYGZus{}killer\PYGZus{}}\PYG{l+s+si}{\PYGZob{}}\PYG{n}{k}\PYG{l+s+si}{\PYGZcb{}}\PYG{l+s+s2}{\PYGZdq{}} \PYG{k}{for} \PYG{n}{k} \PYG{o+ow}{in} \PYG{n+nb}{range}\PYG{p}{(}\PYG{l+m+mi}{1}\PYG{p}{,} \PYG{n}{S} \PYG{o}{+} \PYG{l+m+mi}{1}\PYG{p}{)]}
+\PYG{n}{submission}\PYG{p}{[}\PYG{n}{prob\PYGZus{}cols}\PYG{p}{]} \PYG{o}{=} \PYG{n}{submission}\PYG{p}{[}\PYG{n}{prob\PYGZus{}cols}\PYG{p}{]}\PYG{o}{.}\PYG{n}{div}\PYG{p}{(}\PYG{n}{submission}\PYG{p}{[}\PYG{n}{prob\PYGZus{}cols}\PYG{p}{]}\PYG{o}{.}\PYG{n}{sum}\PYG{p}{(}\PYG{n}{axis}\PYG{o}{=}\PYG{l+m+mi}{1}\PYG{p}{),} \PYG{n}{axis}\PYG{o}{=}\PYG{l+m+mi}{0}\PYG{p}{)}
+\end{MintedVerbatim}
