@@ -1,0 +1,16 @@
+\begin{MintedVerbatim}[commandchars=\\\{\}]
+\PYG{c+c1}{\PYGZsh{} Q7c — Colour VAL points by SVM predictions}
+\PYG{c+c1}{\PYGZsh{} (Assumes you trained model\PYGZus{}svm in Q5)}
+
+\PYG{n}{svm\PYGZus{}pred\PYGZus{}val} \PYG{o}{=} \PYG{n}{model\PYGZus{}svm}\PYG{o}{.}\PYG{n}{predict}\PYG{p}{(}\PYG{n}{X\PYGZus{}val}\PYG{p}{)}
+
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{figure}\PYG{p}{(}\PYG{n}{figsize}\PYG{o}{=}\PYG{p}{(}\PYG{l+m+mi}{7}\PYG{p}{,}\PYG{l+m+mi}{6}\PYG{p}{))}
+\PYG{n}{scatter} \PYG{o}{=} \PYG{n}{plt}\PYG{o}{.}\PYG{n}{scatter}\PYG{p}{(}\PYG{n}{Z\PYGZus{}val\PYGZus{}2D}\PYG{p}{[:,}\PYG{l+m+mi}{0}\PYG{p}{],} \PYG{n}{Z\PYGZus{}val\PYGZus{}2D}\PYG{p}{[:,}\PYG{l+m+mi}{1}\PYG{p}{],}
+                      \PYG{n}{c}\PYG{o}{=}\PYG{n}{svm\PYGZus{}pred\PYGZus{}val}\PYG{p}{,} \PYG{n}{cmap}\PYG{o}{=}\PYG{l+s+s2}{\PYGZdq{}tab20\PYGZdq{}}\PYG{p}{,} \PYG{n}{s}\PYG{o}{=}\PYG{l+m+mi}{15}\PYG{p}{)}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{xlabel}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}PC1\PYGZdq{}}\PYG{p}{)}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{ylabel}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}PC2\PYGZdq{}}\PYG{p}{)}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{title}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}Q7 – PCA Projection of VAL (coloured by SVM predictions)\PYGZdq{}}\PYG{p}{)}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{colorbar}\PYG{p}{(}\PYG{n}{scatter}\PYG{p}{,} \PYG{n}{label}\PYG{o}{=}\PYG{l+s+s2}{\PYGZdq{}Predicted Killer (SVM)\PYGZdq{}}\PYG{p}{)}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{grid}\PYG{p}{(}\PYG{k+kc}{True}\PYG{p}{)}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{savefig}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}q7\PYGZus{}pca2\PYGZus{}svm\PYGZus{}colours.png\PYGZdq{}}\PYG{p}{,} \PYG{n}{dpi}\PYG{o}{=}\PYG{l+m+mi}{150}\PYG{p}{)}
+\end{MintedVerbatim}

@@ -308,7 +308,7 @@ times of the day as well as better representation of the data as it focuses on d
 \subsubsection*{Explanation}
 \addcontentsline{toc}{subsubsection}{Explanation}
 
-We have decided to use the library GaussianMixture that proved to be very usefull.
+We have decided to use the library \textbf{GaussianMixture} that proved to be very usefull.
 Also, we created the following function in order to be able to create the histograms.
 As we can see it requires 5 parameters, 3 of which have default values in case they don't receive any.
 The parameters are:
@@ -455,7 +455,6 @@ Below we present you  one covariance heatmap and one 2D projection with ellipses
   \end{figure}
 \end{itemize}
 
-\newpage
 
 \subsubsection*{Explanation}
 \addcontentsline{toc}{subsubsection}{Explanation}
@@ -495,7 +494,7 @@ Here is the requested confusion matrix on VAL.
 \end{table}
 
 We can see that the matrix produced is mostly diagonal and the killers with the highest presence are the 
-killers 3, 6 and 7, which will be explained due to the accuracy of Q8 in the end of the assignment.\\
+killers \textbf{3, 6 and 7}, which will be explained due to the accuracy of Q8 in the end of the assignment.\\
 Below follows the two-dimensional projection, visualising the decision regions induced by the Bayes classifier, with 
 TRAIN points coloured by true killer. Each curved boundary seperates the feature regions of each killer.
 
@@ -556,6 +555,10 @@ print("VAL accuracy:", val_acc)
 print("VAL confusion matrix:")
 print(confusion_matrix(yval, yval_pred)) 
 \end{minted} 
+\begin{figure}[h]
+    \centering
+    \includegraphics[width= 7cm]{./images/q3-terminal.png}
+\end{figure}
 
 % --------------------------------------------------------------
 \newpage
@@ -655,6 +658,7 @@ print("Q4 VAL confusion:\n", confusion_matrix(yval_idx, va_pred_idx))
 for our convenience in order to make sure all things run smoothly and are executed correctly. It should not consern you as we have provided you with 
 Q4's results in the previous section.
 
+
 % --------------------------------------------------------------
 \newpage
 
@@ -698,8 +702,6 @@ In the images that follow we can see the decision regions as well as the support
 
 Highlighted in red are distributed the incidents that determine the characteristics of the killers' profiles.
 
-\newpage
-
 \subsubsection*{Explanation}
 \addcontentsline{toc}{subsubsection}{Explanation}
 
@@ -741,7 +743,7 @@ The VAL accuracy is equal to 94\% (same as the SVM's). \\
 The features of most importance seem to be(in ascending order): \\
 
 \begin{enumerate}
-  \centering
+
   \item dist\_previnct\_km \qquad \qquad ΔΑ = 0.07
   \item latitude \qquad \qquad \qquad \qquad ΔΑ = 0.06
   \item victim\_age \qquad \qquad \qquad \hspace{0.13cm} ΔΑ = 0.05
@@ -751,7 +753,7 @@ The features of most importance seem to be(in ascending order): \\
 \end{enumerate}
 
 \begin{figure}[h]
-  \centering
+  
   \includegraphics[width=0.9\textwidth]{./images/Q6_diagrams/q6_top5_features.png}
   \\[1em]
 \end{figure}
@@ -878,8 +880,6 @@ As you can see we came to the conclusion that there are 4 predicted killers in k
 you that in Q3 we had predicted killers 3, 6 and 7. This means that even though the VAL accuracy of k-means is equal to 81\%, it is still very close to the 
 Gaussian Bayes and SVM models which have better accuracies.   
 
-\newpage
-
 \subsubsection*{Explanation}
 \addcontentsline{toc}{subsubsection}{Explanation}
 
@@ -931,8 +931,6 @@ for k in range(1, S + 1):
 prob_cols = [f"p_killer_{k}" for k in range(1, S + 1)]
 submission[prob_cols] = submission[prob_cols].div(submission[prob_cols].sum(axis=1), axis=0)
 \end{minted} 
-
-\newpage
 
 This code for the TEST set predicts clusters and labels similarly, then derives class probabilities by first obtaining distances of each example to all
 cluster centroids (kmeans.transform). Distances are converted to soft probabilities with a softmax over negative distances (exp(-distance)), so nearer 
@@ -1012,16 +1010,50 @@ The diagrams from each question are stored in a separate folder. The dataset is 
 .2 q8.py.
 .2 submission.csv.
 }
-
-\begin{tcolorbox}[colback=gray!5!white,colframe=gray!75!black,title=Libraries and data load]
-\begin{minted}[breaklines=true, breakautoindent = true, breakanywhere = true]{python}
+\begin{tcolorbox}[colback=gray!5!white,colframe=gray!75!black,title=Library imports]
+\begin{minted}[breaklines=true]{python}
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 from scipy.stats import norm
 from sklearn.mixture import GaussianMixture
+from numpy.linalg import inv #used in q2
 
+#libraries used in q3, q4, q5, q6, q7, q8
+from sklearn.metrics import accuracy_score, confusion_matrix
+from sklearn.preprocessing import StandardScaler
+from sklearn.decomposition import PCA
+import matplotlib.pyplot as plt
+
+#libraries used in q4
+import torch
+import torch.nn as nn
+import torch.optim as optim
+
+#libraries used in q5
+from sklearn.compose import ColumnTransformer
+from sklearn.preprocessing import StandardScaler, OneHotEncoder
+from sklearn.pipeline import Pipeline
+from sklearn.svm import SVC
+from sklearn.multiclass import OneVsRestClassifier
+from sklearn.metrics import accuracy_score, confusion_matrix, ConfusionMatrixDisplay
+
+
+#libraries used in q6
+from sklearn.neural_network import MLPClassifier
+
+#libraries used in q7
+from sklearn.compose import ColumnTransformer
+
+#libraries used in q8
+from sklearn.cluster import KMeans
+    
+\end{minted}
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=gray!5!white,colframe=gray!75!black,title=Data load from q1.py]
+\begin{minted}[breaklines=true,breakautoindent=true,breakanywhere=true]{python}
 # Φόρτωση & φιλτράρισμα
 csv_path = "crimes.csv"
 df = pd.read_csv(csv_path)
@@ -1040,14 +1072,56 @@ We split the data into TRAIN and VAL as it is required for Q1, a similar method 
 Lastly, we confirm that all the required columns are present in the dataset. This is a common practice to avoid errors later on.
 \end{tcolorbox}
 
+\begin{tcolorbox}[colback=gray!5!white,colframe=gray!75!black,title=Histograms Function from q1.py]
+    \begin{minted}[breaklines=true]{python}
+        # Συνάρτηση για ιστογράμματα
+    def plot_hist_with_stats(series, title, bins=30, kde=False, xlim=None):
+    s = series.dropna().values
+    fig, ax = plt.subplots(figsize=(8, 4.5))
+    sns.histplot(s, bins=bins, stat="density", kde=kde, edgecolor="white", color="#4C78A8", ax=ax)
+    if xlim:
+        ax.set_xlim(xlim)
+    ax.set_title(title, fontweight="bold")
+    ax.set_xlabel(title)
+    ax.set_ylabel("Πυκνότητα")
+    # Περιγραφικά στατιστικά
+    mu, sigma = np.mean(s), np.std(s, ddof=1)
+    ax.axvline(mu, color="crimson", linestyle="--", label=f"μ={mu:.2f}")
+    ax.legend()
+    plt.tight_layout()
+    return fig, ax, mu, sigma
+    \end{minted}
+    \tcblower
+    This function creates histograms with statistics. It takes as an input a pandas Series and drops all NaN values.
+    With the command \texttt{sns.histplot} it creates the histogram. The mean value and the standard deviation are calculated with the commands
+    \texttt{np.means(s)} and \texttt{np.std(s, ddof=1)} respectively. Finally, a vertical line is plotted at the mean value and the figure is returned.
+\end{tcolorbox}
 
+\begin{tcolorbox}[colback=gray!5!white,colframe=gray!75!black,title=Graph Building from q7.py]
+\begin{minted}[breaklines=true,breakautoindent=true,breakanywhere=true]{python}
+# Q7c — Colour VAL points by SVM predictions
+# (Assumes you trained model_svm in Q5)
 
-Briefly describe your Python code structure (scripts, notebooks, helper
-modules) and how to reproduce:
-\begin{itemize}
-  \item the main results and figures in this report;
-  \item the prediction file \texttt{submission.csv}.
-\end{itemize}
+svm_pred_val = model_svm.predict(X_val)
+
+plt.figure(figsize=(7,6))
+scatter = plt.scatter(Z_val_2D[:,0], Z_val_2D[:,1],
+                      c=svm_pred_val, cmap="tab20", s=15)
+plt.xlabel("PC1")
+plt.ylabel("PC2")
+plt.title("Q7 – PCA Projection of VAL (coloured by SVM predictions)")
+plt.colorbar(scatter, label="Predicted Killer (SVM)")
+plt.grid(True)
+plt.savefig("q7_pca2_svm_colours.png", dpi=150)
+\end{minted}
+\tcblower
+In this specific code snippet we create the PCA projection of VAL coloured by SVM predictions.
+Then, we create a scatter plot of the PCA projection where each point is coloured according to its predicted killer label from the SVM model. Finally, we save the plot as an image file.
+\\[1em]
+This code is used similarly in all the questions that require the creation of diagrams. The only difference is the data that is used for the scatter plot and the colouring.
+\end{tcolorbox}
+
+For the prediction file \texttt{submission.csv} the code is included on Q8.
 
 % --------------------------------------------------------------
 \newpage

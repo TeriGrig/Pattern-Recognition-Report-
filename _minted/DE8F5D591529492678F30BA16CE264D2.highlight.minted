@@ -1,0 +1,39 @@
+\begin{MintedVerbatim}[commandchars=\\\{\}]
+\PYG{k+kn}{import}\PYG{+w}{ }\PYG{n+nn}{numpy}\PYG{+w}{ }\PYG{k}{as}\PYG{+w}{ }\PYG{n+nn}{np}
+\PYG{k+kn}{import}\PYG{+w}{ }\PYG{n+nn}{pandas}\PYG{+w}{ }\PYG{k}{as}\PYG{+w}{ }\PYG{n+nn}{pd}
+\PYG{k+kn}{import}\PYG{+w}{ }\PYG{n+nn}{matplotlib.pyplot}\PYG{+w}{ }\PYG{k}{as}\PYG{+w}{ }\PYG{n+nn}{plt}
+\PYG{k+kn}{import}\PYG{+w}{ }\PYG{n+nn}{seaborn}\PYG{+w}{ }\PYG{k}{as}\PYG{+w}{ }\PYG{n+nn}{sns}
+\PYG{k+kn}{from}\PYG{+w}{ }\PYG{n+nn}{scipy.stats}\PYG{+w}{ }\PYG{k+kn}{import} \PYG{n}{norm}
+\PYG{k+kn}{from}\PYG{+w}{ }\PYG{n+nn}{sklearn.mixture}\PYG{+w}{ }\PYG{k+kn}{import} \PYG{n}{GaussianMixture}
+\PYG{k+kn}{from}\PYG{+w}{ }\PYG{n+nn}{numpy.linalg}\PYG{+w}{ }\PYG{k+kn}{import} \PYG{n}{inv} \PYG{c+c1}{\PYGZsh{}used in q2}
+
+\PYG{c+c1}{\PYGZsh{}libraries used in q3, q4, q5, q6, q7, q8}
+\PYG{k+kn}{from}\PYG{+w}{ }\PYG{n+nn}{sklearn.metrics}\PYG{+w}{ }\PYG{k+kn}{import} \PYG{n}{accuracy\PYGZus{}score}\PYG{p}{,} \PYG{n}{confusion\PYGZus{}matrix}
+\PYG{k+kn}{from}\PYG{+w}{ }\PYG{n+nn}{sklearn.preprocessing}\PYG{+w}{ }\PYG{k+kn}{import} \PYG{n}{StandardScaler}
+\PYG{k+kn}{from}\PYG{+w}{ }\PYG{n+nn}{sklearn.decomposition}\PYG{+w}{ }\PYG{k+kn}{import} \PYG{n}{PCA}
+\PYG{k+kn}{import}\PYG{+w}{ }\PYG{n+nn}{matplotlib.pyplot}\PYG{+w}{ }\PYG{k}{as}\PYG{+w}{ }\PYG{n+nn}{plt}
+
+\PYG{c+c1}{\PYGZsh{}libraries used in q4}
+\PYG{k+kn}{import}\PYG{+w}{ }\PYG{n+nn}{torch}
+\PYG{k+kn}{import}\PYG{+w}{ }\PYG{n+nn}{torch.nn}\PYG{+w}{ }\PYG{k}{as}\PYG{+w}{ }\PYG{n+nn}{nn}
+\PYG{k+kn}{import}\PYG{+w}{ }\PYG{n+nn}{torch.optim}\PYG{+w}{ }\PYG{k}{as}\PYG{+w}{ }\PYG{n+nn}{optim}
+
+\PYG{c+c1}{\PYGZsh{}libraries used in q5}
+\PYG{k+kn}{from}\PYG{+w}{ }\PYG{n+nn}{sklearn.compose}\PYG{+w}{ }\PYG{k+kn}{import} \PYG{n}{ColumnTransformer}
+\PYG{k+kn}{from}\PYG{+w}{ }\PYG{n+nn}{sklearn.preprocessing}\PYG{+w}{ }\PYG{k+kn}{import} \PYG{n}{StandardScaler}\PYG{p}{,} \PYG{n}{OneHotEncoder}
+\PYG{k+kn}{from}\PYG{+w}{ }\PYG{n+nn}{sklearn.pipeline}\PYG{+w}{ }\PYG{k+kn}{import} \PYG{n}{Pipeline}
+\PYG{k+kn}{from}\PYG{+w}{ }\PYG{n+nn}{sklearn.svm}\PYG{+w}{ }\PYG{k+kn}{import} \PYG{n}{SVC}
+\PYG{k+kn}{from}\PYG{+w}{ }\PYG{n+nn}{sklearn.multiclass}\PYG{+w}{ }\PYG{k+kn}{import} \PYG{n}{OneVsRestClassifier}
+\PYG{k+kn}{from}\PYG{+w}{ }\PYG{n+nn}{sklearn.metrics}\PYG{+w}{ }\PYG{k+kn}{import} \PYG{n}{accuracy\PYGZus{}score}\PYG{p}{,} \PYG{n}{confusion\PYGZus{}matrix}\PYG{p}{,} \PYG{n}{ConfusionMatrixDisplay}
+
+
+\PYG{c+c1}{\PYGZsh{}libraries used in q6}
+\PYG{k+kn}{from}\PYG{+w}{ }\PYG{n+nn}{sklearn.neural\PYGZus{}network}\PYG{+w}{ }\PYG{k+kn}{import} \PYG{n}{MLPClassifier}
+
+\PYG{c+c1}{\PYGZsh{}libraries used in q7}
+\PYG{k+kn}{from}\PYG{+w}{ }\PYG{n+nn}{sklearn.compose}\PYG{+w}{ }\PYG{k+kn}{import} \PYG{n}{ColumnTransformer}
+
+\PYG{c+c1}{\PYGZsh{}libraries used in q8}
+\PYG{k+kn}{from}\PYG{+w}{ }\PYG{n+nn}{sklearn.cluster}\PYG{+w}{ }\PYG{k+kn}{import} \PYG{n}{KMeans}
+
+\end{MintedVerbatim}
